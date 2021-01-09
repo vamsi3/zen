@@ -1,9 +1,12 @@
 ---
 title: Number Theoretic Transform (NTT)
+sidebar_label: NTT
 ---
 
-::: tip INCLUDE
-- Numeric/ModInt.cpp
+:::note INCLUDE
+
+- [`ModularArithmetic::ModInt`](/math/modint.md)
+
 :::
 
 ``` cpp

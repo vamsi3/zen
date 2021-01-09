@@ -1,6 +1,9 @@
-# Priority Queue / Heap
+---
+title: Priority Queue / Heap
+sidebar_label: Priority Queue
+---
 
-::: tip QUESTION
+:::note QUESTION
 
 **What is the run-time algorithmic complexity of calling `heapifyDown` on every non-leaf node in a complete tree of n nodes?**
 
@@ -128,4 +131,3 @@ public:
   }
 };
 ```
-

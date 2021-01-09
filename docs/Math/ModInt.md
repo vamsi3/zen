@@ -1,11 +1,12 @@
 ---
-id: ModInt
-title: ModInt `class`
-sidebar_label: ModInt
+title: Modular Integer Class
+sidebar_label: ModInt [Class]
 ---
 
 :::note INCLUDE
-- Numeric/Arithmetic.cpp
+
+- [`ModularArithmetic::inv`](/math/arithmetic.md)
+
 :::
 
 ``` cpp

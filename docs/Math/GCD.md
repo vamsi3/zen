@@ -1,9 +1,9 @@
 ---
+title: Greatest Common Divisor
+sidebar_label: GCD
 ---
 
-# GCD - Greatest Common Divisor
-
-## Euclid Algorithm
+## Euclid's Algorithm
 
 ``` cpp
 uint64_t gcdEuclid(int64_t a, int64_t b) {

@@ -1,7 +1,7 @@
 ---
+title: Prime Sieve
+sidebar_label: Sieve
 ---
-
-# Sieve
 
 ## Sieve of Eratosthenes
 

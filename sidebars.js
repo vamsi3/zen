@@ -1,5 +1,20 @@
 const fs = require("fs")
-const path = require('path');
+const path = require("path")
+
+toTitleCase = str => {
+  var upper = true
+  var newStr = ""
+  for (const c of str) {
+      if (c == "-") {
+          upper = true
+          newStr += " "
+      } else {
+        newStr += upper ? c.toUpperCase() : c
+        upper = false
+      }
+  }
+  return newStr
+}
 
 sidebarConfig = (base, dir = '') => {
   var config = []
@@ -7,14 +22,18 @@ sidebarConfig = (base, dir = '') => {
     const ext = path.extname(file)
     if (['.md', '.mdx'].includes(ext)) {
       config.push(
-        path.join(dir, path.basename(file, ext))
+        {
+          type: 'doc',
+          id: path.join(dir, path.basename(file, ext)),
+        }
       )
     } else {
       config.push(
         {
           type: 'category',
-          label: file,
-          items: sidebarConfig(base, path.join(dir, file))
+          label: toTitleCase(file),
+          collapsed: false,
+          items: sidebarConfig(base, path.join(dir, file)),
         }
       )
     }

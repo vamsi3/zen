@@ -1,6 +1,9 @@
-# Edge Coloring of Graph
+---
+title: Edge Coloring of Graph
+sidebar_label: Edge Coloring
+---
 
-::: tip RESOURCES
+:::note RESOURCES
 
 1. [https://codeforces.com/blog/entry/75431](https://codeforces.com/blog/entry/75431)
 
@@ -30,4 +33,3 @@ Time Complexity: $\mathcal{O}(VE)$
 ``` cpp
 
 ```
-

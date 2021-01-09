@@ -1,9 +1,7 @@
 ---
+title: Disjoint-set (DSU) / Union-Find
+sidebar_label: DSU / Union-Find
 ---
-
-# Union-Find / Disjoint Set Union (DSU)
-
-## Code
 
 ``` cpp
 /**
@@ -30,11 +28,11 @@ namespace DSU {
 
 - The `DSU::root` function can also be implemented **<u>iteratively</u>** as below
 
-  ``` cpp
-  int root(vector<int32_t> &p, int32_t v) {
-    if (p[v] < 0) return v;
-    int r = v; while (p[r] >= 0) r = p[r];
-    while (p[v] >= 0) { auto pa = p[v]; p[v] = r; v = pa; }
-    return r;
-  }
-  ```
+``` cpp
+int root(vector<int32_t> &p, int32_t v) {
+  if (p[v] < 0) return v;
+  int r = v; while (p[r] >= 0) r = p[r];
+  while (p[v] >= 0) { auto pa = p[v]; p[v] = r; v = pa; }
+  return r;
+}
+```

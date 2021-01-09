@@ -1,4 +1,7 @@
-# Convex Hull
+---
+title: Convex Hull
+sidebar_label: Convex Hull
+---
 
 ## Andrew's Monotone Chain Algorithm
 

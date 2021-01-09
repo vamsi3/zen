@@ -1,7 +1,7 @@
 ---
+title: Number Theory
+sidebar_label: Number Theory
 ---
-
-# Number Theory
 
 **Euclid's lemma** — If a prime *p* divides the product *ab* of two integers *a* and *b*, then *p* must divide at least one of those integers *a* and *b*.
 

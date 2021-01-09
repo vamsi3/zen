@@ -1,4 +1,7 @@
-# Point `class`
+---
+title: Point Class
+sidebar_label: Point [Class]
+---
 
 ``` cpp
 namespace Point {
@@ -34,4 +37,3 @@ namespace Point {
 
 using P = Point::Point<int64_t>;
 ```
-

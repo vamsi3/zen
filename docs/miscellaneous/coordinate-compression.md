@@ -1,4 +1,7 @@
-# Coordinate Compression
+---
+title: Coordinate Compression
+sidebar_label: Coordinate Compression
+---
 
 ``` cpp
 namespace Compressor {
@@ -20,4 +23,3 @@ void solve() {
   for (int i = 0; i < n; ++i) { cout << c.get(a[i]) << ' '; }
 }
 ```
-

@@ -1,7 +1,7 @@
 ---
+title: Modular Arithmetic
+sidebar_label: Modular Arithmetic
 ---
-
-# Math (m`op`, pow, ... *etc*.)
 
 ``` cpp
 #pragma once

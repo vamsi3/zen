@@ -1,4 +1,7 @@
-# LCA - Lowest Common Ancestor
+---
+title: Lowest Common Ancestor
+sidebar_label: LCA
+---
 
 ## Brute Force
 
@@ -66,4 +69,3 @@ void solve() {
 }
 
 ```
-

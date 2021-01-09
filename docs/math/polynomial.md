@@ -1,10 +1,12 @@
 ---
+title: Polynomial Class
+sidebar_label: Poly [Class]
 ---
 
-# Polynomial `class`
+:::note INCLUDE
 
-::: tip INCLUDE
-- Numeric/NTT.cpp
+- [`NTT::conv1d`](/math/ntt.md)
+
 :::
 
 ``` cpp

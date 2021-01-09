@@ -1,4 +1,7 @@
-# Tree
+---
+title: Tree
+sidebar_label: Tree
+---
 
 ::: tip NOTE
 Whenever we say a Tree ADT, we usually refer to the "rooted, directed, acyclic" one. [Ref: Wikipedia]
@@ -10,7 +13,7 @@ A tree in which each node has atmost 2 children, ordered and designated as left 
 
 - **Height**: Number of <u>edges</u> in longest path from root to leaf.
 - **Full**: Every node has either 0 or 2 children.
-- **Perfect**: All interior nodes have 2 children and all leaves are at same level. 
+- **Perfect**: All interior nodes have 2 children and all leaves are at same level.
 - **Complete**: Tree is perfect until last-but-one level and all leaf nodes on the last level are pushed to left.
 
 ## Tree Traversals

@@ -1,7 +1,7 @@
 ---
+title: Tournament Tree
+sidebar_label: Tournament Tree
 ---
-
-# Tournament Tree
 
 ``` cpp
 #pragma once
@@ -32,9 +32,6 @@ namespace TournamentTree {
   }
 }
 
-#define MAIN
-#ifdef MAIN
-
 int main() {
     cin >> n;
     for (int i = 0; i < n; ++i) {
@@ -44,6 +41,4 @@ int main() {
     ll an = ll(1) * t[2] * t[3];
     cout << an << '\n';
 }
-
-#endif
 ```

@@ -1,4 +1,7 @@
-# Forward List *a.k.a.* Singly Linked List
+---
+title: Forward List / Singly Linked List
+sidebar_label: Singly Linked List
+---
 
 - Sentinel node at head initially.
 - `_tail` variable maintained, to enable the function `push_back` to be implemented. This helps to realize the **Queue ADT**. Note that the **Stack ADT** doesn't need this `push_back` since `push_front` and `pop_front` are sufficient for it.
@@ -101,4 +104,3 @@ public:
   }
 };
 ```
-
