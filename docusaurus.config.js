@@ -23,7 +23,7 @@ module.exports = {
   themeConfig: {
     announcementBar: {
       id: 'support-me',
-      content: '⭐️ If you like Project Zen, give it a star on <a target="_blank" rel="noopener noreferrer" href="https://github.com/vamsi/zen">GitHub</a>! ⭐️',
+      content: '⭐️ If you like Project Zen, give it a star on <a target="_blank" rel="noopener noreferrer" href="https://github.com/vamsi3/zen">GitHub</a>! ⭐️',
     },
     navbar: {
       title: 'Project Zen',
