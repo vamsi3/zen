@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://vamsi3.github.io/blog</id>
-    <title>Welcome! Blog</title>
+    <title>Project Zen Blog</title>
     <updated>2015-10-25T23:29:00.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://vamsi3.github.io/blog"/>
-    <subtitle>Welcome! Blog</subtitle>
+    <subtitle>Project Zen Blog</subtitle>
     <icon>https://vamsi3.github.io/img/favicon.ico</icon>
 </feed>
