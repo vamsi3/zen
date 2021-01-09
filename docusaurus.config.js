@@ -21,24 +21,61 @@ module.exports = {
     },
   ],
   themeConfig: {
+    announcementBar: {
+      id: 'support-me',
+      content: '⭐️ If you like Project Zen, give it a star on <a target="_blank" rel="noopener noreferrer" href="https://github.com/vamsi/zen">GitHub</a>! ⭐️',
+    },
     navbar: {
       title: 'Project Zen',
       logo: {
         alt: 'Project Zen Logo',
         src: 'img/logo.png',
+        srcDark: 'img/logo_dark.png'
       },
       items: [
         {
-          href: 'https://vamsi3.github.io',
-          label: 'Home',
+          href: 'https://codeforces.com/profile/vamsi3',
+          label: 'Codeforces',
+          position: 'left',
+        },
+        {
+          href: 'https://www.codechef.com/users/vamsikrishna_3',
+          label: 'Codechef',
+          position: 'left',
+        },
+        {
+          href: 'https://atcoder.jp/users/vamsi3',
+          label: 'AtCoder',
+          position: 'left',
+        },
+        {
+          href: 'https://github.com/vamsi3/zen',
           position: 'right',
+          className: 'header-github-link',
+          'aria-label': 'GitHub repository',
         },
       ],
+      hideOnScroll: true,
     },
     footer: {
+      logo: {
+        alt: 'Project Zen',
+        src: 'img/logo.png',
+        href: 'https://vamsi3.github.io',
+      },
       style: 'dark',
       copyright: `Copyright © ${new Date().getFullYear()} Satti Vamsi Krishna Reddy. Built with Docusaurus.`,
     },
+    prism: {
+      defaultLanguage: 'cpp',
+      theme: require('prism-react-renderer/themes/github'),
+      darkTheme: require('prism-react-renderer/themes/nightOwl'),
+    },
+    // algolia: {
+    //   apiKey: '',
+    //   indexName: '',
+    //   contextualSearch: true,
+    // },
   },
   presets: [
     [
