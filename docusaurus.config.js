@@ -60,7 +60,7 @@ module.exports = {
     footer: {
       logo: {
         alt: 'Project Zen',
-        src: 'img/logo.png',
+        src: 'img/logo_dark.png',
         href: 'https://vamsi3.github.io',
       },
       style: 'dark',
