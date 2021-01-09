@@ -5,7 +5,7 @@ sidebar_label: NTT
 
 :::note INCLUDE
 
-- [`ModularArithmetic::ModInt`](/math/modint.md)
+- [`ModularArithmetic::ModInt`](/math/modint)
 
 :::
 

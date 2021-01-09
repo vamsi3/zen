@@ -5,7 +5,7 @@ sidebar_label: Poly [Class]
 
 :::note INCLUDE
 
-- [`NTT::conv1d`](/math/ntt.md)
+- [`NTT::conv1d`](/math/ntt)
 
 :::
 
