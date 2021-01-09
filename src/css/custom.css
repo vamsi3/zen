@@ -23,3 +23,31 @@
   margin: 0 calc(-1 * var(--ifm-pre-padding));
   padding: 0 var(--ifm-pre-padding);
 }
+
+/*
+ * Source: https://gist.github.com/uditalias/3969a20ef759bf3a8757499429b30063
+ * Reset the line-number counter for each .prism-code scope
+ */
+ .prism-code {
+  counter-reset: line-number;
+}
+
+/*
+ * Source: https://gist.github.com/uditalias/3969a20ef759bf3a8757499429b30063
+ * Notice the chained .language-ts class name to .prism-code
+ * You can chain more languages in order to add line numbers
+ */
+.prism-code.language-cpp .token-line::before,
+.prism-code.language-java .token-line::before,
+.prism-code.language-kotlin .token-line::before,
+.prism-code.language-python .token-line::before {
+  counter-increment: line-number;
+  content: counter(line-number);
+  margin-right: calc(var(--ifm-pre-padding) * 1.5);
+  text-align: right;
+  min-width: 2.5rem;
+  display: inline-block;
+  opacity: .3;
+  position: sticky;
+  left: var(--ifm-pre-padding);
+}
