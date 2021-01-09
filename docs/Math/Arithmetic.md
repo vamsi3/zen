@@ -1,44 +1,62 @@
 ---
-title: Modular Arithmetic
-sidebar_label: Modular Arithmetic
+title: Arithmetic
+sidebar_label: Arithmetic
 ---
 
+## Operators
+
 ``` cpp
-#pragma once
+namespace ModularArithmetic {
+  inline int32_t madd(int32_t a, int32_t b, int32_t m) { a += b; return (a >= m) ? (a - m) : a; }
+  inline int32_t msub(int32_t a, int32_t b, int32_t m) { a -= b; return (a >= 0) ? a : (a + m); }
+  inline int32_t mmul(int32_t a, int32_t b, int32_t m) { return static_cast<int64_t>(a) * b % m; }
 
-#include "../template/template.cpp"
+  inline void maddi(int32_t &a, int32_t b, int32_t m) { a += b; if (a >= m) a -= m; }
+  inline void msubi(int32_t &a, int32_t b, int32_t m) { a -= b; if (a <  0) a += m; }
+  inline void mmuli(int32_t &a, int32_t b, int32_t m) { a = static_cast<int64_t>(a) * b % m; }
+}
+```
 
-const int32_t MOD = 998244353;
+## Power
 
+``` cpp
 namespace Arithmetic {
-
-  inline int madd(int32_t a, int32_t b, int32_t m = MOD) { return (a + b >= m) ? (a + b - m) : (a + b); }
-  inline int msub(int32_t a, int32_t b, int32_t m = MOD) { return (a >= b) ? (a - b) : (a - b + m); }
-  inline int mmul(int32_t a, int32_t b, int32_t m = MOD) { return int64_t(a) * b % m; }
-
-  inline void maddi(int32_t &a, int32_t b, int32_t m = MOD) { a += b; if (a >= m) a -= m; }
-  inline void msubi(int32_t &a, int32_t b, int32_t m = MOD) { a -= b; if (a < 0 ) a += m; }
-  inline void mmuli(int32_t &a, int32_t b, int32_t m = MOD) { a = mmul(a, b, m); }
-
   int64_t pow(int64_t a, int64_t b) {
     int64_t r = 1;
-    while (b > 0) { if (b & 1) r *= a; a *= a; b >>= 1; }
+    for (; b > 0; b >>= 1) if (b & 1) r *= a; a *= a;
     return r;
   }
+}
 
-  int32_t mpow(int32_t a, int64_t b, int32_t m = MOD) {
-    int r = 1;
-    for (b %= (MOD - 1); b > 0; b >>= 1)
-      if (b & 1) mmuli(r, a); mmuli(a, a);
+namespace ModularArithmetic {
+  int32_t mpow(int32_t a, int64_t b, int32_t m) {
+    int32_t r = 1;
+    for (b %= (m - 1); b > 0; b >>= 1) if (b & 1) mmuli(r, a, m); mmuli(a, a, m);
     return r;
   }
+}
+```
 
-  int32_t minv(int32_t a, int32_t m) {
-    a %= m; assert(a);
-    if (a == 1) return 1;
-    return m - static_cast<int64_t>(minv(m, a)) * m / a;
-  }
+## Inverse
 
+### Recursive
+
+:::note REFERENCES
+
+- [Short modular inverse - Codeforces](https://codeforces.com/blog/entry/23365)
+
+:::
+
+``` cpp
+namespace ModularArithmetic {
+  int32_t minv(int32_t a, int32_t m) { return a > 1 ? m - static_cast<int64_t>(minv(m % a, a)) * m / a : 1; }
+}
+```
+
+## Iterative
+
+``` cpp
+namespace ModularArithmetic {
   int32_t minv_iterative(int32_t a, int32_t m = MOD) {
     int32_t g = m, r = a, x = 0, y = 1;
     while (r != 0) {
@@ -49,13 +67,4 @@ namespace Arithmetic {
     return x < 0 ? x + m : x;
   }
 }
-
-// #define MAIN
-#ifdef MAIN
-
-int main() {
-
-}
-
-#endif
 ```
