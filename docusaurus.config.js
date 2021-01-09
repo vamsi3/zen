@@ -68,8 +68,8 @@ module.exports = {
     },
     prism: {
       defaultLanguage: 'cpp',
-      theme: require('prism-react-renderer/themes/github'),
-      darkTheme: require('prism-react-renderer/themes/palenight'),
+      // theme: require('prism-react-renderer/themes/github'),
+      // darkTheme: require('prism-react-renderer/themes/palenight'),
     },
     // algolia: {
     //   apiKey: '',
