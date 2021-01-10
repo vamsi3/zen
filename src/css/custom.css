@@ -43,9 +43,9 @@
 .prism-code.language-python .token-line::before {
   counter-increment: line-number;
   content: counter(line-number);
-  margin-right: calc(var(--ifm-pre-padding) * 1.5);
+  margin-right: calc(var(--ifm-pre-padding) * 1);
   text-align: right;
-  min-width: 2.5rem;
+  min-width: 1rem;
   display: inline-block;
   opacity: .3;
   position: sticky;
