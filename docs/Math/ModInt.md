@@ -5,7 +5,7 @@ sidebar_label: ModInt [Class]
 
 :::note INCLUDE
 
-- [`ModularArithmetic::inv`](/math/arithmetic)
+- `ModularArithmetic::inv` ➝ [/math/arithmetic](/math/arithmetic#inverse)
 
 :::
 

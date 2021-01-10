@@ -5,7 +5,7 @@ sidebar_label: NTT
 
 :::note INCLUDE
 
-- [`ModularArithmetic::ModInt`](/math/modint)
+- `ModularArithmetic::ModInt` ➝ [/math/modint](/math/modint)
 
 :::
 
@@ -47,7 +47,7 @@ namespace NTT {
     }
   }
 
-  void conv1d(vector<Mint> &a, vector<Mint> b) {
+  void conv1D(vector<Mint> &a, vector<Mint> b) {
     int32_t ntt_size = 1, t = a.size() + b.size() - 1;
     while (ntt_size < t) ntt_size <<= 1;
     a.resize(ntt_size); ntt(a, false);
@@ -62,7 +62,7 @@ namespace NTT {
 inline void example() {
   vector<Mint> a = {1, 4, 2, 3, 4};
   vector<Mint> b = {3, 2, 0, 2, 1, 2};
-  NTT::conv1d(a, b);
+  NTT::conv1D(a, b);
   for (auto &x : a) cout << x << ' '; cout << '\n';
   cout << Mint::primitiveRoot();
 }

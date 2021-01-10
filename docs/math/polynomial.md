@@ -5,7 +5,7 @@ sidebar_label: Poly [Class]
 
 :::note INCLUDE
 
-- [`NTT::conv1d`](/math/ntt)
+- `NTT::conv1D` ➝ [/math/ntt](/math/ntt)
 
 :::
 
@@ -36,7 +36,7 @@ namespace Poly {
       sanitize();
       return *this;
     }
-    Poly operator*=(const Poly &x) { NTT::conv1d(c, x.c); sanitize(); return *this; }
+    Poly operator*=(const Poly &x) { NTT::conv1D(c, x.c); sanitize(); return *this; }
     Poly operator-() const { auto p = *this; for (auto &x : p.c) x = -x; return p; }
 
     friend Poly operator+(const Poly &x, const Poly &y) { Poly p = x; return p += y; }
