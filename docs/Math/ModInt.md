@@ -13,12 +13,12 @@ sidebar_label: ModInt [Class]
 namespace ModularArithmetic {
   template<int32_t MOD_> class ModInt {
     static_assert(MOD_ > 0, "MOD must be positive");
-    static constexpr int32_t MOD = MOD_;
 
   private:
     int32_t v;
 
   public:
+    static constexpr int32_t MOD = MOD_;
     ModInt() : v(0) {}
     ModInt(int32_t v_) : v(v_ % MOD) { if (v < 0) v += MOD; }
     ModInt(int64_t v_) : v(v_ % MOD) { if (v < 0) v += MOD; }
@@ -49,9 +49,17 @@ namespace ModularArithmetic {
     ModInt pow(int64_t b) const { ModInt a(*this), r; r.v = 1; for (b %= (MOD - 1); b > 0; b >>= 1) { if (b & 1) r *= a; a *= a; } return r; }
     friend ModInt inv(const ModInt& n) { return n.inv(); }
     friend ModInt pow(const ModInt& n, int64_t b) { return n.pow(b); }
+
+    static constexpr ModInt primitiveRoot() {
+      if (MOD == 998244353) return 3;
+      int32_t max_size = 1 << __builtin_ctz(MOD - 1);
+      ModInt root = 2;
+      while (!(root.pow(max_size) == 1 && root.pow(max_size / 2) != 1)) ++root;
+      return root;
+    }
   };
 }
 
-const int MOD = 1e9 + 7;
+constexpr int MOD = 998244353;
 using Mint = ModularArithmetic::ModInt<MOD>;
 ```

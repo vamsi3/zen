@@ -10,19 +10,9 @@ sidebar_label: NTT
 :::
 
 ``` cpp
-#pragma once
-
 namespace NTT {
-
-  Mint primitive_root(int32_t mod) {
-    int32_t max_size = 1 << __builtin_ctz(mod - 1);
-    Mint root = 2;
-    while (!(root.pow(max_size) == 1 && root.pow(max_size / 2) != 1)) ++root;
-    return root;
-  }
-
-  const Mint ROOT = 3;  // primitive root HARDCODED for MOD = 998244353
-  // const Mint ROOT = primitive_root(MOD); // for other MOD values, use this.
+  static constexpr int32_t MOD = Mint::MOD;
+  const Mint ROOT = Mint::primitiveRoot();
 
   void ntt(vector<Mint> &a, bool inverse) {
     if (a.empty()) return;
@@ -34,7 +24,7 @@ namespace NTT {
 
     int32_t i = 0;
     for (int32_t j = 1; j < n - 1; ++j) {
-      for (int32_t k = n >> 1; k > (i ^= k); k >>= 1) {}
+      for (int32_t k = n >> 1; k > (i ^= k); k >>= 1);
       if (j < i) swap(a[i], a[j]);
     }
 
@@ -65,19 +55,15 @@ namespace NTT {
     for (int i = 0; i < ntt_size; ++i) a[i] *= b[i];
     ntt(a, true); a.resize(t);
   }
-
 }
 
-// #define MAIN
-#ifdef MAIN
 
-int main() {
+
+inline void example() {
   vector<Mint> a = {1, 4, 2, 3, 4};
   vector<Mint> b = {3, 2, 0, 2, 1, 2};
   NTT::conv1d(a, b);
   for (auto &x : a) cout << x << ' '; cout << '\n';
-  cout << NTT::primitive_root(MOD);
+  cout << Mint::primitiveRoot();
 }
-
-#endif
 ```
