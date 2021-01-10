@@ -28,7 +28,7 @@ sidebarConfig = (base, dir = '') => {
         {
           type: 'category',
           label: toTitleCase(file),
-          collapsed: false,
+          collapsed: true,
           items: sidebarConfig(base, path.join(dir, file)),
         }
       )
