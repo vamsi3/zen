@@ -68,6 +68,7 @@ module.exports = {
     },
     prism: {
       defaultLanguage: 'cpp',
+      additionalLanguages: ['kotlin'],
       // theme: require('prism-react-renderer/themes/github'),
       // darkTheme: require('prism-react-renderer/themes/palenight'),
     },

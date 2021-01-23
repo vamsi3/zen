@@ -47,25 +47,15 @@ cout << chrono::duration_cast<chrono::milliseconds>(tock - tick).count() << " ms
 #include <bits/stdc++.h>
 using namespace std;
 #pragma GCC target("popcnt")
-using ld = long double; using ll = int_fast64_t;
 
 void solve() {
 
 }
 
 int main() {
-  ios_base::sync_with_stdio(false); cin.tie(nullptr); cout.tie(nullptr);
+  ios::sync_with_stdio(false); cin.tie(nullptr);
   solve();
 }
-
-```
-
-## Python Template
-
-``` python
-def solve():
-    x
-```
 
 ## Kotlin Template
 
@@ -97,13 +87,11 @@ def solve():
 
     @JvmField val _writer = java.io.PrintWriter(OUTPUT, false)
     inline fun output(block: java.io.PrintWriter.() -> Unit) { _writer.apply(block).flush() }
-// -----------------------------------------------------------------------------
 
 fun solve() {
 
 }
 
-// -----------------------------------------------------------------------------
 
 fun main() {
     output {
