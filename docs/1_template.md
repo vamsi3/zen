@@ -6,11 +6,30 @@ slug: /
 
 This contains all the template code and resources for CP.
 
-## Resources
+## C++ Template
 
-- [http://www.cplusplus.com/doc/tutorial/](http://www.cplusplus.com/doc/tutorial/)
-- [https://stackoverflow.com/questions/388242/the-definitive-c-book-guide-and-list](https://stackoverflow.com/questions/388242/the-definitive-c-book-guide-and-list)
--
+``` cpp
+// Author: Vamsi Krishna Reddy Satti
+// With love for Competitive Programming!
+
+#include <bits/stdc++.h>
+using namespace std;
+
+using ll = int64_t;
+
+void solve() {
+
+}
+
+int main() {
+  ios::sync_with_stdio(false); cin.tie(nullptr);
+  int t = 1;
+  // cin >> t;
+  for (int i = 1; i <= t; ++i) {
+    solve();
+  }
+}
+```
 
 ## Debug Code
 
@@ -36,27 +55,21 @@ auto tock = chrono::high_resolution_clock::now();
 cout << chrono::duration_cast<chrono::milliseconds>(tock - tick).count() << " ms\n";
 ```
 
----
+## Pragma GCC Optimizations
 
-## C++ Template
-
-``` cpp
-// Author: Vamsi Krishna Reddy Satti
-// With love for Competitive Programming!
-
-#include <bits/stdc++.h>
-using namespace std;
-#pragma GCC target("popcnt")
-
-void solve() {
-
-}
-
-int main() {
-  ios::sync_with_stdio(false); cin.tie(nullptr);
-  solve();
-}
+```cpp
+#pragma comment(linker, "/stack:200000000")
+#pragma GCC optimize("Ofast")
+#pragma GCC target("sse,sse2,sse3,ssse3,sse4,popcnt,abm,mmx,avx,tune=native")
 ```
+
+## Resources
+
+- [http://www.cplusplus.com/doc/tutorial/](http://www.cplusplus.com/doc/tutorial/)
+- [https://stackoverflow.com/questions/388242/the-definitive-c-book-guide-and-list](https://stackoverflow.com/questions/388242/the-definitive-c-book-guide-and-list)
+-
+
+---
 
 ## Kotlin Template
 
