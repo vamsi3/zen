@@ -68,3 +68,15 @@ namespace ModularArithmetic {
   }
 }
 ```
+
+### Linear for range $[1, n]$
+
+``` cpp
+int main {
+  int inv[n], mod = 1000000007;
+  inv[1] = 1;
+  for (int i = 2; i <= n; ++i) {
+    inv[i] = ((mod - mod / i) * inv[mod % i]) % mod;
+  }
+}
+```
