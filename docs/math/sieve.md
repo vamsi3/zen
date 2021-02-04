@@ -22,6 +22,8 @@ void sieve(int n) {
 
 **Time Complexity:** $O(n \ln \ln n)$
 
+The below analysis is for the case when the highlighted line above starts with `j = 2 * i`.
+
 To prove this, notice that the number of iterations are something like $O(n)+\sum_{p \le n} \frac{n}{p}$ where $p$ is a prime. Well, Merten's Second Theorem states that $\sum_{p \le n} \frac{1}{p} = \ln \ln n + O(1)$
 
 ## Segmented Sieve
