@@ -63,12 +63,6 @@ cout << chrono::duration_cast<chrono::milliseconds>(tock - tick).count() << " ms
 #pragma GCC target("sse,sse2,sse3,ssse3,sse4,popcnt,abm,mmx,avx,tune=native")
 ```
 
-## Resources
-
-- [http://www.cplusplus.com/doc/tutorial/](http://www.cplusplus.com/doc/tutorial/)
-- [https://stackoverflow.com/questions/388242/the-definitive-c-book-guide-and-list](https://stackoverflow.com/questions/388242/the-definitive-c-book-guide-and-list)
--
-
 ---
 
 ## Kotlin Template
