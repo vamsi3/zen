@@ -5,7 +5,7 @@ sidebar_label: Sieve
 
 ## Sieve of Eratosthenes
 
-``` cpp
+``` cpp {10}
 bool is_prime[N];
 vector<int> primes;
 
@@ -19,6 +19,10 @@ void sieve(int n) {
   }
 }
 ```
+
+**Time Complexity:** $O(n \ln \ln n)$
+
+To prove this, notice that the number of iterations are something like $O(n)+\sum_{p \le n} \frac{n}{p}$ where $p$ is a prime. Well, Merten's Second Theorem states that $\sum_{p \le n} \frac{1}{p} = \ln \ln n + O(1)$
 
 ## Segmented Sieve
 
