@@ -13,9 +13,16 @@ uint64_t gcdEuclid(int64_t a, int64_t b) {
 }
 ```
 
+**Worst Case**: Consecutive Fibonacci numbers are worst-case input to this algorithm.
+
 **Time Complexity**: $\mathcal{O}(\log(\max(a, b)))$. Note that this is not a strict bound, and often runs faster than this.
 
-**Worst Case**: Consecutive Fibonacci numbers are worst-case input to this algorithm.
+#### Proof
+Observe that in each step, the product $ab$ must atleast reduce by half, i.e.
+
+$$b\times(a\%b)\lt\frac{ab}{2}$$
+
+So, the complexity is $\mathcal{O}(\log(ab))\equiv\mathcal{O}(\log{a} + \log{b})\equiv\mathcal{O}(\log(\max(a, b)))$
 
 ### Binary GCD - An optimization
 
