@@ -15,9 +15,7 @@ This contains all the template code and resources for CP.
 #include <bits/stdc++.h>
 using namespace std;
 
-using ll = int64_t;
-
-void solve() {
+inline void solve() {
 
 }
 
