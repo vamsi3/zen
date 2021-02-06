@@ -1,0 +1,33 @@
+---
+title: Segment Tree
+sidebar_label: Segment Tree
+---
+
+## Basic
+
+```cpp
+const int N = 1e5 + 5;
+int t[N];
+
+void update(int v, int tl, int tr, int p, int va) {
+  if (tl == tr) {
+    t[p] = va;
+    return;
+  }
+  int tm = tl + (tr - tl) / 2, vl = 2 * v, vr = vl | 1;
+  if (p <= tm) update(vl, tl, tm, p, va);
+  else update(vr, tm + 1, tr, p, va);
+  t[v] = t[vl] + t[vr];
+}
+
+int query(int v, int tl, int tr, int l, int r) {
+  if (tl > r || tr < l) return;
+  if (l <= tl && tr <= r) {
+    return t[v];
+  }
+  int tm = tl + (tr - tl) / 2, vl = 2 * v, vr = vl | 1;
+  int re = query(vl, tl, tm, l, r);
+  re += query(vr, tm + 1, tr, l, r);
+  return re;
+}
+```

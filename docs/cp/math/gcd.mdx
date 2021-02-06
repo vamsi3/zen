@@ -3,6 +3,9 @@ title: Greatest Common Divisor
 sidebar_label: GCD
 ---
 
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
 ## Euclid's Algorithm
 
 ``` cpp
@@ -49,24 +52,39 @@ int64_t binaryGCD(int64_t a, int64_t b) {
 
 ## Extended Euclid Algorithm
 
-``` cpp
-tuple<int64_t, int64_t> extendedEuclid(uint64_t a, uint64_t b) {
-  if (!b) return {1, 0};
-  auto [x, y] = extendedEuclid(b, a % b);
-  return {y, x - y * (a / b)};
-}
-```
+<Tabs
+  defaultValue="code"
+  values={[
+    {label: 'Code', value: 'code'},
+    {label: 'Verify', value: 'verify'},
+  ]}>
 
-Verification code:
+  <TabItem value="code">
 
-``` cpp
-void solve() {
-    for (int i = -100; i < 100; ++i) {
-        for (int j = -100; j < 100; ++j) {
-            auto [a, b] = extendedEuclid(abs(i), abs(j));
-            if (i < 0) a = -a; if (j < 0) b = -b;
-            assert(a * i + b * j == gcd(i, j));
-        }
-    }
-}
-```
+  ```cpp
+  tuple<int64_t, int64_t> extendedEuclid(uint64_t a, uint64_t b) {
+    if (!b) return {1, 0};
+    auto [x, y] = extendedEuclid(b, a % b);
+    return {y, x - y * (a / b)};
+  }
+  ```
+
+  </TabItem>
+
+  <TabItem value="verify">
+
+  ```cpp
+  void solve() {
+      for (int i = -100; i < 100; ++i) {
+          for (int j = -100; j < 100; ++j) {
+              auto [a, b] = extendedEuclid(abs(i), abs(j));
+              if (i < 0) a = -a; if (j < 0) b = -b;
+              assert(a * i + b * j == gcd(i, j));
+          }
+      }
+  }
+  ```
+
+  </TabItem>
+
+</Tabs>

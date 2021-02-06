@@ -1,0 +1,67 @@
+---
+title: Number Of Divisors
+sidebar_label: Number Of Divisors
+---
+
+## Question 1
+
+:::note Question
+Given $n \le 10^{18}$, find number of divisors of $n$.
+:::
+
+:::info Resources
+
+- Codeforces Tutorial: [https://codeforces.com/blog/entry/22317](https://codeforces.com/blog/entry/22317)
+- Codeforces Gym: [https://codeforces.com/gym/100753](https://codeforces.com/gym/100753) ➝ Problem K
+- SPOJ: [https://www.spoj.com/problems/NUMDIV/](https://www.spoj.com/problems/NUMDIV/)
+
+:::
+
+### Naive Solution
+
+The complexity of the following is $\mathcal{O}(\sqrt{n})$.
+
+```cpp title="Naive Solution"
+void solve() {
+  int n; cin >> n;
+  int an = 0;
+  for (int i = 1; i * i <= n; ++i) {
+    if (n % i == 0) {
+      an += 2;
+      if (i * i == n) --an;
+    }
+  }
+  cout << an << '\n';
+}
+```
+
+### $\mathcal{O}(n^{\frac{1}{3}})$ solution
+
+- Let's split $n = x \times y$ where $x$ contains only prime factors in range $[2, n^{\frac{1}{3}}]$ and rest of primes in $y$.
+- Let $f(n)$ denote our answer. Now, since $x$ and $y$ are coprime, $f(n) = f(x) \times f(y)$.
+- $f(x)$ can be calculated directly similar to naive solution in $\mathcal{O}(n^{\frac{1}{3}})$.
+- Observe that $y$ falls into one of these cases:
+  - $y$ is prime $\implies$ $f(y) = 2$
+  - $y$ is square of prime $\implies$ $f(y) = 3$
+  - $y$ is product of two distinct primes $\implies$ $f(y) = 4$
+- This is because there can be at max only two divisors of $y$, otherwise one of them surely must be $\le n^{\frac{1}{3}}$.
+
+```cpp
+//pseudocode -- will update later
+void solve() {
+  int n; cin >> n;
+  vector<int> pr; // all primes till 10^6
+  int an = 1;
+  for (auto &p : pr) {
+    if (p * p * p > n) break;
+    int cn = 1;
+    while (n % p == 0) { n /= p; ++cn; }
+    an *= cn;
+  }
+  // use miller-rabin
+  if (n is prime) { an *= 2; }
+  else if (n is square of prime) { an *= 3; }
+  else an *= 4;
+  cout << an << '\n';
+}
+```
