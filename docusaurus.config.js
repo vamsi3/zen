@@ -34,19 +34,34 @@ module.exports = {
       },
       items: [
         {
-          href: 'https://codeforces.com/profile/vamsi3',
-          label: 'Codeforces',
+          type: 'doc',
           position: 'left',
+          docId: 'cp',
+          label: 'Algorithms',
         },
         {
-          href: 'https://www.codechef.com/users/vamsikrishna_3',
-          label: 'Codechef',
+          type: 'doc',
           position: 'left',
+          docId: 'cpp',
+          label: 'C++',
         },
         {
-          href: 'https://atcoder.jp/users/vamsi3',
-          label: 'AtCoder',
-          position: 'left',
+          label: 'CP Profiles',
+          position: 'right',
+          items: [
+            {
+              label: 'Codeforces',
+              href: 'https://codeforces.com/profile/vamsi3'
+            },
+            {
+              label: 'Codechef',
+              href: 'https://www.codechef.com/users/vamsikrishna_3',
+            },
+            {
+              label: 'AtCoder',
+              href: 'https://atcoder.jp/users/vamsi3',
+            }
+          ],
         },
         {
           href: 'https://github.com/vamsi3/zen',

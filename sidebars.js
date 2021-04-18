@@ -38,5 +38,6 @@ sidebarConfig = (base, dir = '') => {
 }
 
 module.exports = {
-  sidebarDocs: sidebarConfig('./docs')
+  cp: sidebarConfig('./docs', 'cp'),
+  cpp: sidebarConfig('./docs', 'cpp')
 };
