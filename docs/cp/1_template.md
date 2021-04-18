@@ -15,7 +15,7 @@ This contains all the template code and resources for CP.
 #include <bits/stdc++.h>
 using namespace std;
 
-inline void solve() {
+static inline __attribute__((always_inline)) void solve() {
 
 }
 
