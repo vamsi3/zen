@@ -36,13 +36,13 @@ module.exports = {
         {
           type: 'doc',
           position: 'left',
-          docId: 'cp',
+          docId: 'cp/1_template',
           label: 'Algorithms',
         },
         {
           type: 'doc',
           position: 'left',
-          docId: 'cpp',
+          docId: 'cpp/1_home',
           label: 'C++',
         },
         {
