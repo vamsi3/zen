@@ -3,6 +3,70 @@ title: Lowest Common Ancestor
 sidebar_label: LCA
 ---
 
+## Binary lifting (better way)
+
+```cpp
+const int N = 1e6 + 5;
+const int LOG_N = 20 + 1;
+
+int in[N], ou[N], TIME = 0;
+int up[N][LOG_N];
+vector<int> g[N];
+
+void dfs(int u, int p) {
+  in[u] = ++TIME;
+  up[u][0] = p;
+  for (int i = 1; i < LOG_N; ++i) {
+    up[u][i] = up[up[u][i - 1]][i - 1];
+  }
+  for (auto &v : g[u]) {
+    if (v == p) continue;
+    dfs(v, u);
+  }
+  ou[u] = ++TIME;
+}
+
+int lca(int u, int v) {
+  auto is_ancestor = [&](int u, int v) {
+    return in[u] <= in[v] && ou[v] <= ou[u];
+  };
+  if (is_ancestor(u, v)) return u;
+  if (is_ancestor(v, u)) return v;
+  for (int i = LOG_N - 1; i >= 0; --i) {
+    if (!is_ancestor(up[u][i], v)) {
+      u = up[u][i];
+    }
+  }
+  return up[u][0];
+}
+
+inline void solve() {
+  int n; cin >> n;
+  for (int i = 1; i < n; ++i) {
+    int u, v; cin >> u >> v;
+    g[u].push_back(v);
+    g[v].push_back(u);
+  }
+  dfs(1, 1);
+
+  // Verification
+  for (int i = 1; i <= n; ++i) {
+    for (int j = 1; j < i; ++j) {
+      cout << j << ' ' << i << ' ' << lca(i, j) << '\n';
+    }
+  }
+}
+
+int main() {
+  ios::sync_with_stdio(false); cin.tie(nullptr);
+  int t = 1;
+  // cin >> t;
+  for (int i = 1; i <= t; ++i) {
+    solve();
+  }
+}
+```
+
 ## Brute Force
 
 ``` cpp
