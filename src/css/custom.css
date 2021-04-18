@@ -63,7 +63,7 @@
  * Source: https://github.com/facebook/docusaurus/blob/5872bbc735118071a29a435457b247d7fa21a906/website/src/css/custom.css
  */
 .header-github-link:before {
-  content: 'Github';
+  content: '';
   width: 24px;
   height: 24px;
   display: flex;
