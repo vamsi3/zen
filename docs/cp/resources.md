@@ -1,7 +1,8 @@
 ---
 title: Interesting Resources
-sidebar_label: Resources
 slug: /resources
+sidebar_label: Resources
+sidebar_position: 3
 ---
 
 - [http://www.cplusplus.com/doc/tutorial/](http://www.cplusplus.com/doc/tutorial/)

@@ -2,7 +2,7 @@ const remarkMath = require("remark-math")
 const rehypeKatex = require("rehype-katex")
 
 module.exports = {
-  title: 'Project Zen',
+  title: 'Project ZEN',
   tagline: 'A collection of my knowledge',
   url: 'https://vamsi3.github.io',
   baseUrl: '/zen/',
@@ -23,12 +23,12 @@ module.exports = {
   themeConfig: {
     announcementBar: {
       id: 'support-me',
-      content: '⭐️ If you like Project Zen, give it a star on <a target="_blank" rel="noopener noreferrer" href="https://github.com/vamsi3/zen">GitHub</a>! ⭐️',
+      content: '⭐️ If you like Project ZEN, give it a star on <a target="_blank" rel="noopener noreferrer" href="https://github.com/vamsi3/zen">GitHub</a>! ⭐️',
     },
     navbar: {
-      title: 'Project Zen',
+      title: 'Project ZEN',
       logo: {
-        alt: 'Project Zen Logo',
+        alt: 'Project ZEN Logo',
         src: 'img/logo.png',
         srcDark: 'img/logo_dark.png'
       },
@@ -74,7 +74,7 @@ module.exports = {
     },
     footer: {
       logo: {
-        alt: 'Project Zen',
+        alt: 'Project ZEN',
         src: 'img/logo_dark.png',
         href: 'https://vamsi3.github.io',
       },
@@ -117,7 +117,6 @@ module.exports = {
           customCss: require.resolve('./src/css/custom.css'),
         },
         sitemap: {
-          cacheTime: 600 * 1000, // 600 sec - cache purge period
           changefreq: 'weekly',
           priority: 0.5,
           trailingSlash: false,

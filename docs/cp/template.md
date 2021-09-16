@@ -1,7 +1,8 @@
 ---
 title: Competitive Programming
-sidebar_label: Home
 slug: /
+sidebar_label: Home
+sidebar_position: 1
 ---
 
 This contains all the template code and resources for CP.
@@ -27,6 +28,14 @@ int main() {
     solve();
   }
 }
+```
+
+## Stack Limit
+
+``` shell
+ulimit -s unlimited   # set stack limit
+ulimit -c             # check if command worked
+./a.out               # execute your code
 ```
 
 ## Debug Code

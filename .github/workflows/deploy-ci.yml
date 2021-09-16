@@ -1,4 +1,4 @@
-name: Deploy website CI
+name: Deploy Project ZEN
 
 on:
   push:
