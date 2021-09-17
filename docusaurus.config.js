@@ -13,10 +13,9 @@ module.exports = {
   projectName: 'zen',
   stylesheets: [
     {
-      href: 'https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css',
+      href: 'https://cdn.jsdelivr.net/npm/katex@0.13.18/dist/katex.min.css',
       type: 'text/css',
-      integrity:
-        'sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X',
+      integrity: 'sha384-zTROYFVGOfTw7JV7KUu8udsvW2fx4lWOsCEDqhBreBwlHI4ioVRtmIvEThzJHGET',
       crossorigin: 'anonymous',
     },
   ],
