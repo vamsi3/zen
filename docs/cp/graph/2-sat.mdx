@@ -1,0 +1,44 @@
+---
+title: 2-SAT
+sidebar_label: 2-SAT
+---
+
+:::note INCLUDE
+
+- `Graph::ImplicationGraph` ➝ [/cp/graph/implication-graph](/cp/graph/implication-graph)
+
+:::
+
+### Note
+
+You can also add additional constraints using more clauses:
+
+1. Forcing a variable (say $x$) to be true: $(x \lor x)$
+2. Exactly one variable must be true: $(x \lor y) \land (\lnot x \lor \lnot y)$
+3. At least one variable must be true: $(x \lor y)$
+4. Both variables must have the same value: $(\lnot x \lor y) \land (x \lor \lnot y)$
+
+## Code
+
+```cpp
+constexpr int N = 1'000'005;
+Graph::ImplicationGraph<N> ig;
+
+inline void solve() {
+    int n, m; cin >> n >> m;
+    ig.set(n);
+    for (int i = 0; i < m; ++i) {
+        // add clause (x v y) which is same as (~x => y)
+        int x, y; bool x_negated, y_negated;
+        cin >> x >> x_negated >> y >> y_negated;
+        x_negated ^= 1;
+        ig.addClause((x << 1) | x_negated, (y << 1) | y_negated);
+    }
+
+    vector<int> solution = ig.solve();
+    for (int i = 1; i <= n; ++i) {
+        cout << solution[i] << ' ';
+    }
+    cout << endl;
+}
+```

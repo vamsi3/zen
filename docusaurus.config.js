@@ -109,6 +109,7 @@ module.exports = {
           editUrl: 'https://github.com/vamsi3/zen/edit/master/',
           routeBasePath: '/',
           showLastUpdateTime: true,
+          numberPrefixParser: false,
           remarkPlugins: [remarkMath],
           rehypePlugins: [[rehypeKatex, {output: 'html', minRuleThickness: 0.06}]],
         },
