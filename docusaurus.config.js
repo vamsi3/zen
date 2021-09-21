@@ -20,6 +20,7 @@ module.exports = {
     },
   ],
   themeConfig: {
+    hideableSidebar: true,
     announcementBar: {
       id: 'support-me',
       content: '⭐️ If you like Project ZEN, give it a star on <a target="_blank" rel="noopener noreferrer" href="https://github.com/vamsi3/zen">GitHub</a>! ⭐️',
@@ -35,15 +36,27 @@ module.exports = {
         {
           type: 'doc',
           position: 'left',
-          docId: 'cp/template',
+          docId: 'cp/home',
           label: 'Algorithms',
         },
         {
           type: 'doc',
           position: 'left',
-          docId: 'cpp/home',
-          label: 'C++',
+          docId: 'dip/home',
+          label: 'Image Processing',
         },
+        {
+          type: 'doc',
+          position: 'left',
+          docId: 'dl/home',
+          label: 'Deep Learning',
+        },
+        // {
+        //   type: 'doc',
+        //   position: 'left',
+        //   docId: 'cpp/home',
+        //   label: 'C++',
+        // },
         {
           label: 'CP Profiles',
           position: 'right',
