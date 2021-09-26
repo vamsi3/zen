@@ -21,6 +21,7 @@ module.exports = {
   ],
   themeConfig: {
     hideableSidebar: true,
+    sidebarCollapsed: false,
     announcementBar: {
       id: 'support-me',
       content: '⭐️ If you like Project ZEN, give it a star on <a target="_blank" rel="noopener noreferrer" href="https://github.com/vamsi3/zen">GitHub</a>! ⭐️',
