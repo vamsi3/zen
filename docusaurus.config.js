@@ -21,7 +21,6 @@ module.exports = {
   ],
   themeConfig: {
     hideableSidebar: true,
-    sidebarCollapsed: false,
     announcementBar: {
       id: 'support-me',
       content: '⭐️ If you like Project ZEN, give it a star on <a target="_blank" rel="noopener noreferrer" href="https://github.com/vamsi3/zen">GitHub</a>! ⭐️',
@@ -119,6 +118,7 @@ module.exports = {
       '@docusaurus/preset-classic',
       {
         docs: {
+          sidebarCollapsed: false,
           sidebarPath: require.resolve('./sidebars.js'),
           editUrl: 'https://github.com/vamsi3/zen/edit/master/',
           routeBasePath: '/',
