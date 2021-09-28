@@ -1,6 +1,6 @@
 ---
 title: Lowest Common Ancestor
-sidebar_label: LCA
+sidebar_label: Lowest Common Ancestor
 ---
 
 ## Binary lifting (better way)
