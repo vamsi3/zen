@@ -6,6 +6,7 @@ module.exports = {
   tagline: 'A collection of my knowledge',
   url: 'https://vamsi3.github.io',
   baseUrl: '/zen/',
+  trailingSlash: true,
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
@@ -133,7 +134,6 @@ module.exports = {
         sitemap: {
           changefreq: 'weekly',
           priority: 0.5,
-          trailingSlash: false,
         },
       },
     ],
