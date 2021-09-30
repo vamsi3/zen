@@ -6,12 +6,12 @@ module.exports = {
   tagline: 'A collection of my knowledge',
   url: 'https://vamsi3.github.io',
   baseUrl: '/zen/',
-  trailingSlash: true,
-  onBrokenLinks: 'throw',
-  onBrokenMarkdownLinks: 'warn',
-  favicon: 'img/favicon.ico',
   organizationName: 'vamsi3',
   projectName: 'zen',
+  favicon: 'img/favicon.ico',
+  trailingSlash: true,
+  onBrokenLinks: 'throw',
+  onBrokenMarkdownLinks: 'throw',
   stylesheets: [
     {
       href: 'https://cdn.jsdelivr.net/npm/katex@0.13.18/dist/katex.min.css',
@@ -19,6 +19,13 @@ module.exports = {
       integrity: 'sha384-zTROYFVGOfTw7JV7KUu8udsvW2fx4lWOsCEDqhBreBwlHI4ioVRtmIvEThzJHGET',
       crossorigin: 'anonymous',
     },
+  ],
+  scripts: [
+    {
+      src: "https://cdn.jsdelivr.net/npm/katex@0.13.18/dist/katex.min.js",
+      integrity: "sha256-FyuFDgL3AT2Wi7dlv82fSVvxe2rPx1rRSVtMOWeRp6k=",
+      crossorigin: 'anonymous',
+    }
   ],
   themeConfig: {
     hideableSidebar: true,
@@ -105,14 +112,11 @@ module.exports = {
     //   indexName: '',
     //   contextualSearch: true,
     // },
-    gtag: {
-      trackingID: 'G-35E7VC4V7P',
-      // Optional fields.
-      anonymizeIP: true, // Should IPs be anonymized?
-    },
-    googleAdsense: {
-      dataAdClient: "ca-pub-8010227322033974",
-    },
+    // gtag: {
+    //   trackingID: 'G-35E7VC4V7P',
+    //   // Optional fields.
+    //   anonymizeIP: true, // Should IPs be anonymized?
+    // }
   },
   presets: [
     [
@@ -137,8 +141,5 @@ module.exports = {
         },
       },
     ],
-  ],
-  plugins: [
-    'docusaurus-plugin-google-adsense',
-  ],
+  ]
 };
