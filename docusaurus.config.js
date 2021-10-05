@@ -45,7 +45,7 @@ module.exports = {
           type: 'doc',
           position: 'left',
           docId: 'cp/home',
-          label: 'Algorithms',
+          label: 'Data Structures / Algorithms',
         },
         {
           type: 'doc',
@@ -57,7 +57,7 @@ module.exports = {
           type: 'doc',
           position: 'left',
           docId: 'dl/home',
-          label: 'Deep Learning',
+          label: 'AI / Machine / Deep Learning',
         },
         // {
         //   type: 'doc',
