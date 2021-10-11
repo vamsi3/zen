@@ -1,0 +1,49 @@
+---
+title: Standard Template Library (STL)
+sidebar_label: Standard Template Library
+---
+
+import CodeBlock from '@theme/CodeBlock';
+
+## `std::array`
+> Header `<array>`
+```cpp
+template <class T, size_t N> class array;
+```
+
+- Not sure if this is in C+ standard or just GCC implementation, but `std::array<int, N>` is an alias of `int*` for any `N` which is `size_t`.
+
+
+## `std::set`
+> Header `<set>`
+
+- Can create STL
+
+
+## `std::multiset`
+> Header `<multiset>`
+
+
+## `std::iterator`
+
+- `std::begin` and `std::end` functions
+```cpp
+#include <array>
+#include <iterator>
+#include <vector>
+
+int main() {
+    int c_array[5] = {};
+    std::array<int, 5> cpp_array = {};
+    std::vector<int> cpp_vector(5);
+
+    int* c_array_begin = std::begin(c_array);       // = c_array + 0
+    int* c_array_end = std::end(c_array);           // = c_array + 5
+
+    int* cpp_array_begin = std::begin(cpp_array);   // = cpp_array.begin();
+    int* cpp_array_end = std::end(cpp_array);       // = cpp_array.end();
+    
+    std::vector<int>::iterator cpp_vector_begin = std::begin(cpp_vector); // = cpp_vector.begin();
+    std::vector<int>::iterator cpp_vector_end = std::end(cpp_vector);     // = cpp_vector.end();
+}
+```

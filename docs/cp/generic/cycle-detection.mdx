@@ -1,0 +1,60 @@
+---
+title: Cycle Detection in Iterated Function Values
+sidebar_label: Cycle Detection
+---
+
+## Theory
+
+- Floyd's algorithm (also called tortoise and hare algorithm) only accesses the sequence by storing and copying pointers, function evaluations, and equality tests; therefore, it qualifies as a pointer algorithm. It uses $O(λ + μ)$ operations of these types, and $O(1)$ storage space.
+- Brent's algorithm is also a pointer algorithm that uses $O(λ + μ)$ tests and function evaluations and $O(1)$ storage space. It has two advantages compared to the Floyd's algorithm: it finds the correct length $λ$ of the cycle directly, rather than needing to search for it in a subsequent stage, and its steps involve only one evaluation of $f$ rather than three. The number of function evaluations can never be higher than for Floyd's algorithm. Brent claims that, on average, his cycle finding algorithm runs around $36\%$ more quickly than Floyd's and that it speeds up the Pollard's rho algorithm by around $24\%$.
+
+## Code
+
+```cpp
+#include <functional>
+
+namespace CycleDetection {
+    std::tuple<int, int> floyd(int start, std::function<int (int)> f) {
+        int a = f(start), b = f(a);
+        while (a != b) { a = f(a); b = f(f(b)); }
+
+        int mu = 0;
+        a = start;
+        while (a != b) { a = f(a); b = f(b); ++mu; }
+
+        int lambda = 0;
+        do { b = f(b); ++lambda; } while (a != b);
+
+        return {lambda, mu};
+    }
+
+    std::tuple<int, int> brent(int start, std::function<int (int)> f) {
+        int lambda = 1, power = 1;
+        int a = start, b = f(a);
+        while (a != b) {
+            if (lambda == power) { a = b; power *= 2; lambda = 0; }
+            b = f(b); ++lambda;
+        }
+
+        a = b = start;
+        for (int i = 0; i < lambda; ++i) b = f(b);
+
+        int mu = 0;
+        while (a != b) { a = f(a); b = f(b); ++mu; }
+
+        return {lambda, mu};
+    }
+}
+
+#include <iostream>
+
+int f(int x) {
+    if (x == 10) return 3;
+    return x + 1;
+}
+
+int main() {
+    auto [x, y] = CycleDetection::brent(0, f);
+    std::cout << x << ' ' << y << '\n';
+}
+```

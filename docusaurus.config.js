@@ -59,12 +59,12 @@ module.exports = {
           docId: 'dl/home',
           label: 'AI / Machine / Deep Learning',
         },
-        // {
-        //   type: 'doc',
-        //   position: 'left',
-        //   docId: 'cpp/home',
-        //   label: 'C++',
-        // },
+        {
+          type: 'doc',
+          position: 'left',
+          docId: 'cpp/home',
+          label: 'C++',
+        },
         {
           label: 'CP Profiles',
           position: 'right',
@@ -105,7 +105,8 @@ module.exports = {
       defaultLanguage: 'cpp',
       additionalLanguages: ['python', 'java', 'kotlin'],
       // theme: require('prism-react-renderer/themes/github'),
-      // darkTheme: require('prism-react-renderer/themes/palenight'),
+      theme: require('./src/themes/ayuDark.js'),
+      darkTheme: require('./src/themes/ayuDark.js'),
     },
     // algolia: {
     //   apiKey: '',

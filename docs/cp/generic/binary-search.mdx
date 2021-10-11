@@ -1,0 +1,23 @@
+---
+title: Binary Search
+sidebar_label: Binary Search
+---
+
+``` cpp
+static inline void solve() {
+  vector<int> v = {0, 0, 0, 1, 1, 1, 1};
+
+  int l = -1, r = v.size();
+  while (r - l > 1) {
+    int m = l + (r - l) / 2;
+    if (!v[m]) {
+      l = m;
+    } else {
+      r = m;
+    }
+  }
+  
+  // l = 2, r = 3 here
+}
+
+```
