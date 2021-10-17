@@ -44,7 +44,7 @@ namespace String {
             link[q] = link[last] = qq;
             
             while (1) {
-                auto& r = t[p][c]; if (r != q) break; r = qq;
+                auto& r = t[p][c]; if (r != q) return; r = qq;
                 p = link[p]; if (p == -1) return;
             }
         }
