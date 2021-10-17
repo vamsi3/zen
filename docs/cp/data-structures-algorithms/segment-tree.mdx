@@ -7,9 +7,23 @@ sidebar_label: Segment Tree
 
 ### Why define array to be 4 times the maximum range?
 
-If we are building segment tree on interval $[1, n]$ with root index 1 over an array ($2x$ and $2x + 1$ are children of $x$) and if $\mathit{IDX}[n]$ is maximum index of a node in segment tree representing a valid interval; then it can be shown (much more easily observed emperically) that $\frac{\mathit{IDX}[n]}{n}$ is maximum when $n = 2^k + 2^{\lfloor\frac{k}{2}\rfloor}$ for some $k \ge 1$ (and also $\mathit{IDX}[n] = 2^{k+2} - 2^{\lfloor\frac{k + 1}{2}\rfloor + 1} + 1$).
+If we are building segment tree on interval $[1, n]$ with root index 1 over an array ($2x$ and $2x + 1$ are children of $x$) and if $\mathit{IDX}[n]$ is maximum index of a node in segment tree representing a valid interval; then it can be shown (much more easily observed emperically) that $\frac{\mathit{IDX}[n]}{n}$ is maximum when
 
-And on limit, $\lim_{k \to \infty} \frac{2^{k+2} - 2^{\lfloor\frac{k + 1}{2}\rfloor + 1} + 1}{2^k + 2^{\lfloor\frac{k}{2}\rfloor}} = 4$.
+$$
+n = 2^k + 2^{\lfloor\frac{k}{2}\rfloor} \;\text{for some}\; k \ge 1
+$$
+
+and for such $n$, it can be shown that
+
+$$
+\mathit{IDX}[n] = 2^{k+2} - 2^{\lfloor\frac{k + 1}{2}\rfloor + 1} + 1
+$$
+
+Finally on limit,
+
+$$
+\lim_{k \to \infty} \frac{2^{k+2} - 2^{\lfloor\frac{k + 1}{2}\rfloor + 1} + 1}{2^k + 2^{\lfloor\frac{k}{2}\rfloor}} = 4
+$$
 
 ## Basic (point-update, range-query)
 
