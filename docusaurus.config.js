@@ -99,7 +99,7 @@ module.exports = {
         href: 'https://vamsi3.github.io',
       },
       style: 'dark',
-      copyright: `Copyright © ${new Date().getFullYear()} Satti Vamsi Krishna Reddy. Built with Docusaurus.`,
+      copyright: `© ${new Date().getFullYear()} Satti Vamsi Krishna Reddy • All rights reserved • Built with Docusaurus`,
     },
     prism: {
       defaultLanguage: 'cpp',
