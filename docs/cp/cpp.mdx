@@ -1,11 +1,42 @@
 ---
-title: Standard Template Library (STL)
-sidebar_label: Standard Template Library
+title: C++ (until C++20)
+slug: /cpp
+sidebar_label: C++
+sidebar_position: 2
 ---
+
+## Some Features
+
+### `std::views`
+> Header `<ranges>`
+
+```cpp
+#include <iostream>
+#include <ranges>
+
+int main() {
+    {
+        int a[] = {1, 2, 3, 4, 5};
+        for (auto& x : a) std::cout << x << ' ';                        // 1 2 3 4 5
+        for (auto& x : a | std::views::reverse) std::cout << x << ' ';  // 5 4 3 2 1
+    }
+    {
+        for (auto x : std::views::iota(3, 9)) std::cout << x << ' ';    // 3 4 5 6 7 8 
+    }
+}
+```
+
+### `std::nth_element`
+- `std::nth_element` ➝ Finds n<sup>th</sup> element and partitions the array around it. [Link](http://www.cplusplus.com/reference/algorithm/nth_element/)
+
+### `std::min`
+- Instead of `int a = min(x1,min(x2,min(x3,min(x4,x5))));`, `int a = min({x2,x2,x3,x4,x5});` can be done.
+
+## Standard Template Library (STL)
 
 import CodeBlock from '@theme/CodeBlock';
 
-## `std::array`
+### `std::array`
 > Header `<array>`
 ```cpp
 template<   class T,
@@ -15,7 +46,7 @@ template<   class T,
 - Not sure if this is in C++ standard or just GCC implementation, but `std::array<int, N>` is an alias of `int*` for any `N` which is `size_t`.
 
 
-## `std::set`
+### `std::set`
 > Header `<set>`
 ```cpp
 template<   class Key,
@@ -77,7 +108,7 @@ int main() {
 }
 ```
 
-## `std::multimap`
+### `std::multimap`
 > Header `<map>`
 ```cpp
 template<   class Key,
@@ -86,7 +117,7 @@ template<   class Key,
             class Allocator = std::allocator<std::pair<const Key, T> >   > class multimap;
 ```
 
-## `std::list`
+### `std::list`
 > Header `<list>`
 ```cpp
 template<   class T,
@@ -130,7 +161,7 @@ int main() {
 ```
 
 
-## `std::iterator`
+### `std::iterator`
 
 - `std::begin` and `std::end` functions
 ```cpp
@@ -151,5 +182,46 @@ int main() {
     
     std::vector<int>::iterator cpp_vector_begin = std::begin(cpp_vector); // = cpp_vector.begin();
     std::vector<int>::iterator cpp_vector_end = std::end(cpp_vector);     // = cpp_vector.end();
+}
+```
+
+
+## Files
+
+```cpp
+#include <iostream>
+#include <fstream>
+
+int main() {
+    std::ifstream ifile("hello.txt");
+
+    if (!ifile) {
+        std::cerr << "Failed to open file!" << std::endl;
+        return 0;
+    }
+
+    std::string str;
+
+    // Rrad word by word by trimming whitespace
+    while (ifile >> str) {
+        std::cout << str << ' ';
+    }
+
+    // Can also line by line by trimming new line characters
+    while (std::getline(ifile, str)) {
+        std::cout << str << std::endl;
+    }
+
+    ifile.close();
+
+    std::ofstream ofile("hello.txt");
+    if (!ofile) {
+        std::cerr << "Failed to create file!" << std::endl;
+        return 0;
+    }
+
+    ofile << "Hello, World!";
+
+    ofile.close();
 }
 ```

@@ -60,12 +60,6 @@ module.exports = {
           label: 'AI / Machine / Deep Learning',
         },
         {
-          type: 'doc',
-          position: 'left',
-          docId: 'cpp/home',
-          label: 'C++',
-        },
-        {
           label: 'CP Profiles',
           position: 'right',
           items: [

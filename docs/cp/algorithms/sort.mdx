@@ -1,0 +1,31 @@
+---
+title: Sorting
+sidebar_label: Sorting
+---
+
+- <u>Stable sort</u> means that elements with equal value are not disturbed of their relative positions after sorting.
+
+## Insertion Sort
+
+```cpp
+namespace Algorithm {
+    void insertion_sort(std::vector<int>& a) {
+        int n = a.size();
+        for (int i = 1; i < n; ++i) {
+            int x = std::move(a[i]);
+            int j = i - 1;
+            while (j >= 0 && a[j] > x) {
+                a[j + 1] = std::move(a[j]);
+                --j;
+            }
+            a[j + 1] = std::move(x);
+        }
+    }
+}
+
+int main() {
+    vector<int> v = {5, 2, 6, 1, 3, 1, 3, 2, 3, 4};
+    Algorithm::insertion_sort(v);
+    std::ranges::copy(v, std::ostream_iterator<int>(std::cout, " "));
+}
+```
