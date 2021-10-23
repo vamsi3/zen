@@ -50,6 +50,12 @@ module.exports = {
         {
           type: 'doc',
           position: 'left',
+          docId: 'cpp/home',
+          label: 'C++20',
+        },
+        {
+          type: 'doc',
+          position: 'left',
           docId: 'dip/home',
           label: 'Image Processing',
         },

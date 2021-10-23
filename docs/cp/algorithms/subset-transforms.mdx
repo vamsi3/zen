@@ -1,0 +1,75 @@
+---
+title: Subset Transforms (Dynamic Programming)
+sidebar_label: Subset Transforms (DP)
+---
+
+:::note references
+1. https://codeforces.com/blog/entry/45223
+2. https://codeforces.com/blog/entry/72488
+:::
+
+## Code
+
+``` cpp
+namespace Algorithm {
+    template<typename T>
+    void zetaTransform(std::span<T> f) {
+        int n = std::countr_zero(f.size());
+        for (int i = 0; i < n; ++i)
+            for (int mask = 0; mask < (1 << n); ++mask)
+                if (mask & (1 << i))
+                    f[mask] += f[mask ^ (1 << i)];
+    }
+
+    /* this is inverse of zetaTransform */
+    template<typename T>
+    void mobiusTransform(std::span<T> f) {
+        int n = std::countr_zero(f.size());
+        for (int i = 0; i < n; ++i)
+            for (int mask = 0; mask < (1 << n); ++mask)
+                if (mask & (1 << i))
+                    f[mask] -= f[mask ^ (1 << i)];
+    }
+
+    /* unverified */
+    template<typename T>
+    std::vector<T> subsetSumConvolution(std::span<T> f, std::span<T> g) {
+        uint64_t two_power_n = f.size();
+        int n = std::countr_zero(two_power_n);
+
+        std::array<std::vector<T>, 32> f_hat, g_hat, h_hat;
+        std::ranges::fill(f_hat, std::vector<int>(two_power_n, 0));
+        std::ranges::fill(g_hat, std::vector<int>(two_power_n, 0));
+        std::ranges::fill(h_hat, std::vector<int>(two_power_n, 0));
+
+        for (int mask = 0; mask < (1 << n); ++mask) {
+            int set_bit_count = std::popcount((uint64_t) mask);
+            f_hat[set_bit_count][mask] = f[mask];
+            g_hat[set_bit_count][mask] = g[mask];
+        }
+
+        for (int k = 0; k <= n; ++k) zetaTransform<T>(f_hat[k]);
+        for (int k = 0; k <= n; ++k) zetaTransform<T>(g_hat[k]);
+
+        for (int i = 0; i <= n; ++i)
+            for (int j = 0; j <= i; ++j)
+                for (int mask = 0; mask < (1 << n); ++mask)
+                    h_hat[i][mask] += f_hat[j][mask] * g_hat[i - j][mask];
+
+        for (int k = 0; k <= n; ++k) mobiusTransform<T>(h_hat[k]);
+        
+        std::vector<T> fog(two_power_n);
+
+        for (int mask = 0; mask < (1 << n); ++mask)
+            fog[mask] = h_hat[mask][std::popcount((uint64_t) mask)];
+        
+        return fog;
+    }
+}
+
+int main() {
+    std::vector<int> a = {3,7,5,6,1,2,2,1};
+    Algorithm::zetaTransform<int>(a);
+    std::ranges::copy(a, std::ostream_iterator<int>(std::cout, " "));
+}
+```

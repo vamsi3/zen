@@ -72,6 +72,13 @@ int main() {
         for (auto& value : s_greater) { cout << value << ' '; } cout << endl;   // 6 5 4 3 2 1
     }
 
+    // custom comparator
+    {
+        std::vector<int> order = {3, 4, 2, 5, 0, 1};
+        auto cmp = [&](int x, int y) { return order[x] < order[y]; };
+        std::set<int, decltype(cmp)> s(cmp);
+    }
+
     // emplace -> returns iterator to the newly inserted element
     {
         std::set<int> set;
