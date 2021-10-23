@@ -1,0 +1,19 @@
+---
+title: Median Absolute Deviation (MAD)
+sidebar_label: Median Absolute Deviation
+---
+
+:::note references
+1. https://math.stackexchange.com/questions/113270/the-median-minimizes-the-sum-of-absolute-deviations-the-ell-1-norm
+:::
+
+## Code
+
+``` cpp
+int64_t median_absolute_deviation(std::span<int32_t>&& a) {
+    size_t n = a.size();
+    int64_t median = a[n / 2];
+    return accumulate(begin(a), end(a), int64_t(0),
+        [&](const int64_t& x, const int64_t& y) { return x + abs(y - median); });
+}
+```
