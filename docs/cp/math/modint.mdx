@@ -21,7 +21,7 @@ namespace ModularArithmetic {
     static constexpr int32_t MOD = MOD_;
     ModInt() : v(0) {}
     ModInt(int32_t v_) : v(v_ % MOD) { if (v < 0) v += MOD; }
-    ModInt(int64_t v_) : v(v_ % MOD) { if (v < 0) v += MOD; }
+    ModInt(int64_t v_) : v(static_cast<int32_t>(v_ % MOD)) { if (v < 0) v += MOD; }
     explicit operator int() const { return v; }
     friend std::ostream& operator << (std::ostream& os, const ModInt& n) { return os << int(n); }
     friend std::istream& operator >> (std::istream& is, ModInt& n) { int64_t v_; is >> v_; n = ModInt(v_); return is; }
@@ -37,7 +37,7 @@ namespace ModularArithmetic {
 
     ModInt& operator += (const ModInt &o) { if ((v += o.v) >= MOD) v -= MOD; return *this; }
     ModInt& operator -= (const ModInt &o) { if ((v -= o.v) < 0) v += MOD; return *this; }
-    ModInt& operator *= (const ModInt &o) { auto r = static_cast<int64_t>(v) * o.v; v = (r >= MOD) ? r % MOD : r; return *this; }
+    ModInt& operator *= (const ModInt &o) { auto r = static_cast<int64_t>(v) * o.v; v = static_cast<int32_t>((r >= MOD) ? r % MOD : r); return *this; }
     ModInt& operator /= (const ModInt &o) { return *this *= o.inv(); }
 
     friend ModInt operator + (ModInt a, const ModInt &b) { return a += b; }

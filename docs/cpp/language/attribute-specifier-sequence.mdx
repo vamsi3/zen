@@ -1,0 +1,16 @@
+---
+title: Attribute specifier sequence
+sidebar_label: Attribute specifier sequence
+---
+
+## `[[maybe_unused]]`
+> Suppresses warnings on unused entities. Link: https://en.cppreference.com/w/cpp/language/attributes/maybe_unused
+
+```cpp
+int main() {
+    /* repeat something 10 times */
+    for (int _ [[maybe_unused]] : views::iota(0, 10)) {
+        // ...
+    }
+}
+```
