@@ -51,7 +51,7 @@ namespace Math {
             }
         }
 
-        static void conv1D(std::vector<Mint> &a, std::vector<Mint> &b) {
+        static void conv1D(std::vector<Mint>& a, std::vector<Mint> b) {
             const auto conv_size = static_cast<std::int32_t>(a.size() + b.size() - 1);
             auto n = conv_size;
             while (n ^ (n & -n)) n ^= n & -n;

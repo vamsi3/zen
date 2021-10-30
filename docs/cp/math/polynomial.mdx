@@ -9,6 +9,8 @@ sidebar_label: Poly [Class]
 
 :::
 
+## Old Code
+
 ``` cpp
 #pragma once
 #include "../template/template.cpp"
@@ -133,4 +135,66 @@ int main() {
 }
 
 #endif
+```
+
+## New Code
+
+```cpp
+namespace Math {
+    template<typename Mint> class Poly {
+    private:
+        inline void sanitize() { while (!c.empty() && c.back() == 0) c.pop_back(); }
+
+    public:
+        std::vector<Mint> c;
+
+        constexpr Poly() = default;
+        constexpr ~Poly() = default;
+        constexpr Poly(Poly const&) = default;
+        constexpr Poly(Poly&&) = default;
+        constexpr Poly(std::initializer_list<Mint> l) : c(l) {}
+        Poly& operator=(Poly const&) & = default;
+        Poly& operator=(Poly&&) & = default;
+
+        Mint& operator[](int32_t idx) { return c[idx]; }
+        Poly operator-() const { auto p = *this; for (auto& x : p.c) x = -x; return p; }
+
+        Poly& operator+=(Poly const& x) {
+            if (c.size() < x.c.size()) c.resize(x.c.size());
+            for (size_t i = 0; i < x.c.size(); ++i) c[i] += x.c[i];
+            sanitize(); return *this;
+        }
+        Poly& operator-=(Poly const& x) {
+            if (c.size() < x.c.size()) c.resize(x.c.size());
+            for (size_t i = 0; i < x.c.size(); ++i) c[i] -= x.c[i];
+            sanitize(); return *this;
+        }
+
+        Poly operator*=(Poly const& x) { NTT<Mint>::conv1D(c, x.c); return *this; }
+        Poly operator*=(Mint k)        { for (auto& x : c) x *= k; return *this; }
+
+        friend Poly operator+(Poly x, Poly const& y) { return x += y; }
+        friend Poly operator-(Poly x, Poly const& y) { return x -= y; }
+        friend Poly operator*(Poly x, Poly const& y) { return x *= y; }
+        friend Poly operator*(Poly x, Mint k)        { return x *= k; }
+        friend Poly operator*(Mint k, Poly x)        { return x *= k; }
+
+        friend ostream& operator<<(ostream& os, const Poly& x) { os << "Polynomial[ "; for (auto const& c : x.c) os << c << ' '; return os << ']'; }
+
+        void derivative() {
+            if (c.empty()) return;
+            auto n = static_cast<int32_t>(c.size());
+            for (auto i = 1; i < n; ++i) c[i - 1] = c[i] * i;
+            c.resize(n - 1);
+        }
+
+        void integral() {
+            if (c.empty()) return;
+            auto n = static_cast<int32_t>(c.size());
+            c.resize(n + 1);
+            for (auto i = n; i > 0; --i) c[i] = c[i - 1] * Mint(i).inv();
+            c[0] = 0;
+        }
+    };
+}
 ```
