@@ -10,7 +10,7 @@ sidebar_label: ModInt [Class]
 :::
 
 ``` cpp
-namespace ModularArithmetic {
+namespace Math {
   template<int32_t MOD_> class ModInt {
     static_assert(MOD_ > 0, "MOD must be positive");
 
@@ -19,9 +19,9 @@ namespace ModularArithmetic {
 
   public:
     static constexpr int32_t MOD = MOD_;
-    ModInt() : v(0) {}
-    ModInt(int32_t v_) : v(v_ % MOD) { if (v < 0) v += MOD; }
-    ModInt(int64_t v_) : v(static_cast<int32_t>(v_ % MOD)) { if (v < 0) v += MOD; }
+    constexpr ModInt() : v(0) {}
+    constexpr ModInt(int32_t v_) : v(v_ % MOD) { if (v < 0) v += MOD; }
+    constexpr ModInt(int64_t v_) : v(static_cast<int32_t>(v_ % MOD)) { if (v < 0) v += MOD; }
     explicit operator int() const { return v; }
     friend std::ostream& operator << (std::ostream& os, const ModInt& n) { return os << int(n); }
     friend std::istream& operator >> (std::istream& is, ModInt& n) { int64_t v_; is >> v_; n = ModInt(v_); return is; }
@@ -61,5 +61,5 @@ namespace ModularArithmetic {
 }
 
 constexpr int MOD = 998244353;
-using Mint = ModularArithmetic::ModInt<MOD>;
+using Mint = Math::ModInt<MOD>;
 ```
