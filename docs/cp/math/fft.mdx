@@ -1,0 +1,55 @@
+---
+title: Fast Fourier Transform (FFT)
+sidebar_label: FFT
+---
+
+``` cpp
+namespace Math {
+    template<typename T> class Complex {
+    public:
+        T real, imag;
+
+        constexpr Complex() = default;
+        constexpr Complex(Complex const&) = default;
+        constexpr Complex(Complex&&) = default;
+        constexpr Complex(const T& r) : real(r), imag(0) {}
+        constexpr Complex(const T& r, const T& i) : real(r), imag(i) {}
+        constexpr ~Complex() = default;
+
+        Complex& operator=(Complex const&) & = default;
+        Complex& operator=(Complex&&) & = default;
+        bool operator==(Complex const&) const = default;
+
+        Complex& operator-() const { return Complex(-real, -imag); }
+        Complex& operator+=(Complex const& o) { real += o.real; imag += o.imag; return *this; }
+        Complex& operator-=(Complex const& o) { real -= o.real; imag -= o.imag; return *this; }
+        Complex& operator*=(Complex const& o) {
+            T r = real * o.real - imag * o.imag, i = real * o.imag + imag * o.real;
+            real = r; imag = i; return *this;
+        }
+        Complex& operator/=(Complex const& o) {
+            T r = real * o.real + imag * o.imag, i = imag * o.real - real * o.imag;
+            auto t = o.magnitudeSquare();
+            real = r / t; imag = i / t; return *this;
+        }
+
+        friend Complex operator+(Complex a, Complex const& b) { return a += b; }
+        friend Complex operator-(Complex a, Complex const& b) { return a -= b; }
+        friend Complex operator*(Complex a, Complex const& b) { return a *= b; }
+        friend Complex operator/(Complex a, Complex const& b) { return a /= b; }
+
+        Complex conjugate() const { return Complex(real, -imag); }
+        T magnitudeSquare() const { return real * real + imag * imag; }
+
+    };
+}
+
+namespace Math {
+    template<typename Complex> class FFT {
+    public:
+        static void fft(std::span<T>& a, bool inverse) {
+            // TODO
+        }
+    };
+}
+```
