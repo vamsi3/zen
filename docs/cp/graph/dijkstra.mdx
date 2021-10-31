@@ -1,0 +1,42 @@
+---
+title: Dijkstra's Algorithm
+sidebar_label: Dijkstra's Algorithm
+---
+
+## Code
+
+```cpp
+namespace Graph {
+    std::vector<int32_t> dijkstra(Graph<WeightedEdge> graph, int32_t source) {
+        std::vector<int32_t> distance(graph.adj.size(), INT_MAX);
+        distance[source] = 0;
+
+        auto cmp_distance = [&distance = std::as_const(distance)](auto const& u, auto const& v) {
+            return distance[u] < distance[v];
+        };
+        std::set<int32_t, decltype(cmp_distance)> leaves({source}, cmp_distance);
+
+        while (!leaves.empty()) {
+            auto u = *leaves.begin();
+            leaves.erase(leaves.begin());
+            
+            for (auto const& ed_idx : graph.adj[u]) {
+                auto const& edge = graph.ed[ed_idx];
+                auto v = edge.other(u);
+                int32_t new_distance = distance[u] + edge.w;
+                if (distance[v] <= new_distance) continue;
+                
+                distance[v] = new_distance;
+                auto node_v = leaves.extract(v);
+                if (node_v) {
+                    leaves.insert(std::move(node_v));
+                } else {
+                    leaves.insert(v);
+                }
+            }
+        }
+
+        return distance;
+    }
+}
+```
