@@ -3,9 +3,19 @@ title: Dijkstra's Algorithm
 sidebar_label: Dijkstra's Algorithm
 ---
 
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+:::note INCLUDE
+- `Graph::Graph`, `Graph::WeightedEdge` ➝ [/cp/graph/graph](/cp/graph/graph)
+:::
+
 ## Code
 
-```cpp
+<Tabs>
+<TabItem value="Code">
+
+```cpp title="Graph::dijkstra"
 namespace Graph {
     std::vector<int32_t> dijkstra(Graph<WeightedEdge> graph, int32_t source) {
         std::vector<int32_t> distance(graph.adj.size(), INT_MAX);
@@ -40,3 +50,51 @@ namespace Graph {
     }
 }
 ```
+
+</TabItem>
+<TabItem value="Verify">
+<div class="verify-tab">
+<div class="verify">
+
+```cpp title="Verification code"
+int main() {
+    int n, m; cin >> n >> m;
+    Graph::Graph<Graph::WeightedEdge> g(n);
+    for (auto _ [[maybe_unused]] : std::views::iota(0, m)) {
+        int u, v, w;
+        std::cin >> u >> v >> w;
+        g.addEdge({--u ,--v, w});
+    }
+    auto d = Graph::dijkstra(g, 0);
+    for (auto& x : d) std::cout << x << ' ';
+    std::cout << std::endl;
+}
+```
+
+</div>
+<div class="input">
+
+```text title="Input"
+6 9
+1 2 7
+1 3 9
+1 6 14
+2 3 10
+2 4 15
+3 4 11
+3 6 2
+4 5 6
+5 6 9
+```
+
+</div>
+<div class="output">
+
+```text title="Output"
+0 7 9 20 20 11
+```
+
+</div>
+</div>
+</TabItem>
+</Tabs>

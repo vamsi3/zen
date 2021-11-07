@@ -85,3 +85,21 @@ html[data-theme='dark'] .header-github-link:before {
 :root { 
   --ifm-container-width-xl: 1500px !important;
 }
+
+/* Custom CSS by Vamsi from HERE */
+.verify-tab {
+  display: grid;
+  column-gap: 18px;
+  grid-template:
+    "verify input output"
+    / auto;
+}
+.verify {
+  grid-area: verify;
+}
+.input {
+  grid-area: input;
+}
+.output {
+  grid-area: output;
+}
