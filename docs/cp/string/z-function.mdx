@@ -14,7 +14,7 @@ namespace Algorithm {
     template<typename T>
     std::vector<int32_t> z_function(std::span<T> const& s) {
         int32_t n = static_cast<int32_t>(s.size());
-        std::vector<int32_t> z(n);
+        std::vector<int32_t> z(n, 0);
         for (int32_t i = 1, l = 0, r = 0; i < n; ++i) {
             if (i <= r) z[i] = std::min(r - i + 1, z[i - l]);
             while (i + z[i] < n && s[i + z[i]] == s[z[i]]) ++z[i];
@@ -39,8 +39,8 @@ namespace String {
 ```cpp title="Verification"
 int main() {
     std::string s; std::cin >> s;
-    auto pi = String::z_function(s);
-    for (auto const& x : pi) std::cout << x << ' ';
+    auto z = String::z_function(s);
+    for (auto const& x : z) std::cout << x << ' ';
 }
 ```
 

@@ -25,7 +25,6 @@ namespace Algorithm {
 }
 
 namespace String {
-    /* Part of the KMP algorithm */
     std::vector<int> prefix_function(std::string const& s) {
         return Algorithm::prefix_function<char const>({s.begin(), s.length()});
     }
