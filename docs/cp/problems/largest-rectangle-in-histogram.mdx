@@ -1,0 +1,73 @@
+---
+title: Largest Rectangle in Histogram
+sidebar_label: Largest Rectangle in Histogram
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+<Tabs>
+<TabItem value="Code">
+
+```cpp title="Problem :: largestRectangleArea"
+namespace Problem {
+    /* Returns sub array as [i, j]. If not found, returns {-1, -1} */
+    template<typename T>
+    uint64_t largestRectangleArea(std::span<T> a) {
+        int32_t n = static_cast<int32_t>(a.size());
+        std::stack<int32_t> s;
+        uint64_t max_area = 0;
+        for (int32_t i = 0; i <= n; ++i) {
+            int a_i = (i == n) ? 0 : a[i];
+            while (!s.empty()) {
+                auto const& j = s.top();
+                if (a[j] <= a_i) break;
+                s.pop();
+                /* a values in X are all >= a[j] where X is [0, i) if s is empty else (s.top(), i)  */
+                /* essentialy X defined above is {leftClosestSmaller, rightClosestSmaller} for index j */
+                max_area = std::max(max_area, a[j] * static_cast<uint64_t>(s.empty() ? i : i - s.top() - 1));
+            }
+            s.push(i);
+        }
+        return max_area;
+    }
+}
+```
+
+</TabItem>
+<TabItem value="Verify">
+<div class="verify-tab">
+<div class="verify">
+
+```cpp title="Verification"
+int main() {
+    int32_t n;
+    std::cin >> n;
+    std::vector<int32_t> a(n);
+    for (int32_t i : std::views::iota(0, n)) {
+        std::cin >> a[i]; /* a[i] >= 1 */
+    }
+    auto max_area = Problem::largestRectangleArea<int32_t>(a);
+    std::cout << max_area << std::endl;
+}
+```
+
+</div>
+<div class="input">
+
+```text title="Input"
+6
+2 1 5 6 2 3
+```
+
+</div>
+<div class="output">
+
+```text title="Output"
+10
+```
+
+</div>
+</div>
+</TabItem>
+</Tabs>
