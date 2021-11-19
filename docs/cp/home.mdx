@@ -120,22 +120,56 @@ fun main() {
 ## Java Template
 
 ``` java
-import java.io.*;
-import java.util.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.util.StringTokenizer;
 
-class test {
-  public static void main (String [] args) throws IOException {
-    // Use BufferedReader rather than RandomAccessFile; it's much faster
-    BufferedReader f = new BufferedReader(new FileReader("test.in"));
-                                                  // input file name goes above
-    PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter("test.out")));
-    // Use StringTokenizer vs. readLine/split -- lots faster
-    StringTokenizer st = new StringTokenizer(f.readLine());
-						  // Get line, break into tokens
-    int i1 = Integer.parseInt(st.nextToken());    // first integer
-    int i2 = Integer.parseInt(st.nextToken());    // second integer
-    out.println(i1+i2);                           // output result
-    out.close();                                  // close the output file
-  }
+public class Main {
+    static FastScanner is = new FastScanner();
+    static PrintWriter os = new PrintWriter(System.out);
+
+    public static void main(String[] args) {
+        int t = is.readInt();
+        for (int i = 0; i < t; ++i) solve();
+        os.close();
+    }
+
+    static void solve() {
+        int n = is.readInt();
+        for (int i = 0; i < n; ++i) os.print(i * i + " ");
+        os.println();
+    }
+
+    static class FastScanner {
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer stringTokenizer = new StringTokenizer("");
+
+        String readString() {
+            while (!stringTokenizer.hasMoreTokens()) {
+                try {
+                    stringTokenizer = new StringTokenizer(bufferedReader.readLine());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            return stringTokenizer.nextToken();
+        }
+
+        int readInt() {
+            return Integer.parseInt(readString());
+        }
+
+        int[] readArray(int n) {
+            int[] a = new int[n];
+            for (int i = 0; i < n; ++i) a[i] = readInt();
+            return a;
+        }
+
+        long readLong() {
+            return Long.parseLong(readString());
+        }
+    }
 }
 ```
