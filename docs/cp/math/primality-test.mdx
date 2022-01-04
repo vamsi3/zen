@@ -1,0 +1,27 @@
+---
+title: Primality Tests
+sidebar_label: Primality Tests
+---
+
+## Naive
+
+Given an integer $n$, we can check numbers up to $\sqrt{n}$ to find if a number divides $n$. If there is such a number, $n$ is composite. If not, $n$ is a prime. This gives the solution in $O(\sqrt{n})$.
+
+## Miller Rabin Test (deterministic ver.)
+
+Now we know how to generate prime numbers fast. How about primality testing?
+
+Naive solutions first. Given an integer $n$, we can check numbers up to $\sqrt{n}$ to find if a number divides $n$. If there is such a number, $n$ is composite. If not, $n$ is a prime. This gives the solution in $O(\sqrt{n})$.
+
+Here's a "solution" in $O(c\ln n)$ using the fast exponentiation we will talk about in the next section. It's called Miller-Rabin Primality Test.
+I'll introduce the deterministic version. We probably (hopefully) won't see stuff like $n> 4 \cdot 10^9$ in contests.
+
+Here's the sketch of the algorithm. Choose some set of $a$. We will run the algorithm with different $a$s, and the more $a$s we run this algorithm with, the more accurate this primality test is going to be.
+
+Decompose $n-1$ as $2^s \cdot d$. Then check if the following holds.
+$$a^d \not\equiv 1 \pmod{n} \text{   and   }a^{2^rd} \not\equiv -1 \pmod{n} \text{    for all    } r \in [0,s-1]$$If there is an $a$ that satisfies this, $n$ is composite. If not, $n$ is a prime.
+
+### List for sufficient checks (deterministic)
+
+- $n<4.7 \cdot 10^9$ ➝ $a=2,7,61$
+- $n<2^{64}$ ➝ $a=2,3,5,7,11,13,17,19,23,29,31,37$

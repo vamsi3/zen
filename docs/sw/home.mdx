@@ -1,0 +1,19 @@
+---
+title: SW
+slug: /sw
+sidebar_label: Home
+sidebar_position: 1
+---
+
+## SW
+
+This part of website is not meant for public audience. Context might be missing for the unaware audience.
+
+### Basics
+
+```cpp title="Random Generator (not my code)"
+static unsigned short rndint() {
+    static unsigned long long seed = 5;
+    return ((unsigned int)((seed = seed * 25214903917ULL + 11ULL) >> 16));
+}
+```

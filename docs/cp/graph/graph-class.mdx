@@ -1,0 +1,35 @@
+---
+title: Graph Class
+---
+
+``` cpp
+namespace Graph {
+    class Edge {
+    public:
+        std::int32_t u, v;
+
+        std::int32_t other(std::int32_t x) const { return x ^ u ^ v; }
+    };
+
+    class WeightedEdge : public Edge {
+    public:
+        std::int32_t w;
+    };
+
+    template<typename Edge>
+    class Graph {
+    public:
+        std::vector<std::vector<std::int32_t>> adj;
+        std::vector<Edge> ed;
+
+        Graph(int n) { adj.resize(n); }
+
+        void addEdge(Edge edge) {
+            int32_t ed_idx = static_cast<int32_t>(ed.size());
+            ed.emplace_back(edge);
+            adj[edge.u].emplace_back(ed_idx);
+            adj[edge.v].emplace_back(ed_idx);
+        }
+    };
+}
+```

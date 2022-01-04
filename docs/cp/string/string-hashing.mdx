@@ -1,0 +1,44 @@
+---
+title: String Hashing
+---
+
+## Code
+
+
+
+
+We need a hash function to convert a string into an integer, called the hash of that string. The following condition has to hold: For two strings $S$ and $T$,
+
+$$
+S = T \implies \text{hash}(S) = \text{hash}(T) \\
+$$
+
+but reverse is not guaranteed. We only hope that
+
+$$
+P(S \not= T \implies \text{hash}(S) \not= \text{hash}(T)) \quad \text{is very high} \\
+$$
+
+## Polynomial Rolling Hash Function
+
+
+
+$$
+\begin{aligned}
+\text{hash}(s) &= s[0] + s[1] \cdot p + s[2] \cdot p^2 + \cdots + s[n-1] \cdot p^{n-1} \mod m \\
+&= \sum_{i=0}^{n-1} s[i] \cdot p^i \mod m,
+\end{aligned}
+$$
+
+where $n = \text{length}(s)$ and $p$ and $m$ are some chosen, positive numbers.
+
+:::caution
+For example while calculating the hash of string $s$ made of only lowercase letters, we convert each character of $s$ to an integer. A possible conversion is $a \rightarrow 1, b \rightarrow 2, \cdots, z \rightarrow 26$. Converting $a \rightarrow 0$ is not a good idea, because then the hashes of the strings $a, aa, aaa, \cdots$ all evaluate to 0.
+:::
+
+```cpp
+// Precomputing the powers of p might give a performance boost.
+```
+
+### Technique: Fast Polynomial Rolling Hash of Substrings 
+

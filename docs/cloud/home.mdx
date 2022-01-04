@@ -1,0 +1,44 @@
+---
+title: Cloud
+slug: /cloud
+sidebar_label: Home
+sidebar_position: 1
+---
+
+## Docker
+
+### Basics
+
+```bash title="Shell"
+docker create [IMAGE] # Creates a container with image
+
+docker start [CONTAINER ID]
+docker start -a [IMAGE] # for our purpose for now, -a to show output on console
+
+docker run [IMAGE] # Creates a container with image, and starts it
+
+docker ps --all # List containers
+
+docker system prune
+
+docker logs [CONTAINER ID]
+
+docker stop [CONTAINER ID] # Sends SIGTERM to process in container. If container doesn't stop in 10 seconds, docker sends a KILL signal.
+docker kill [CONTAINER ID] # Sends SIGKILL to process in container
+
+docker exec -it [CONTAINER ID] [COMMAND] # Execute an additional command in a container
+docker exec -it [CONTAINER ID] sh # Specific example very useful in real life, opens up a shell
+
+docker run -it [CONTAINER ID] sh
+```
+
+### Dockerfile - Creating Images
+
+```docker title="Dockerfile"
+FROM alpine
+RUN apk add --update redis
+CMD ["redis-server"]
+```
+```bash title="Shell"
+docker build . # from directory containing dockerfile
+```

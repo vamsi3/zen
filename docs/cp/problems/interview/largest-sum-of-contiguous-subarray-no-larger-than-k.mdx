@@ -1,0 +1,76 @@
+---
+title: Largest sum of contiguous subarray no larger than K
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+<Tabs>
+<TabItem value="Code">
+
+```cpp title="Problem :: anyMaxSubArraySumLessThanK" {6,12}
+namespace Problem {
+    /* Returns sub array as [i, j]. If not found, returns {-1, -1} */
+    template<typename T>
+    std::tuple<int32_t, int32_t> anyMaxSubArraySumLessThanK(std::span<T> a, int64_t k) {
+        int32_t n = static_cast<int32_t>(a.size());
+        std::set<std::tuple<int64_t, int32_t>> prefix_sums = {{0, -1}};
+        int64_t prefix_sum_i = 0, maxSubArraySum = std::numeric_limits<int64_t>::min();
+        std::tuple<int32_t, int32_t> maxSubArray = {-1, -1};
+
+        for (int32_t i : std::views::iota(0, n)) {
+            prefix_sum_i += a[i];
+            auto it = prefix_sums.upper_bound({prefix_sum_i - k, n});
+            if (it != prefix_sums.end()) {
+                auto const& [prefix_sum_j, j] = *it;
+                int64_t subArraySum = prefix_sum_i - prefix_sum_j;
+                if (subArraySum > maxSubArraySum) {
+                    maxSubArraySum = subArraySum;
+                    maxSubArray = {j + 1, i};
+                }
+            }
+            prefix_sums.emplace(prefix_sum_i, i);
+        }
+        
+        return maxSubArray;
+    }
+}
+```
+
+</TabItem>
+<TabItem value="Verify">
+<div class="verify-tab">
+<div class="verify">
+
+```cpp title="Verification"
+int main() {
+    int32_t n, k;
+    std::cin >> n >> k;
+    std::vector<int32_t> a(n);
+    for (int32_t i : std::views::iota(0, n)) {
+        std::cin >> a[i];
+    }
+    auto [l, r] = Problem::anyMaxSubArraySumLessThanK<int32_t>(a, k);
+    std::cout << l << ' ' << r << std::endl;
+}
+```
+
+</div>
+<div class="input">
+
+```text title="Input"
+4 3
+3 0 2 -5
+```
+
+</div>
+<div class="output">
+
+```text title="Output"
+1 2
+```
+
+</div>
+</div>
+</TabItem>
+</Tabs>

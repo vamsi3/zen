@@ -1,0 +1,19 @@
+---
+title: Prime Factorization
+sidebar_label: Prime Factorization
+---
+
+## Naive Algorithm
+
+Assume that we generated prime numbers using the Eratosthenes's Sieve.
+If $n$ is in the "prime-generated" range, we can actually do prime factorization in $O(\log n)$.
+Make another array. While we are doing the Sieve, for composite numbers, put "the first prime that verified that this number is composite" and for prime numbers, put itself. This is easy to implement.
+
+Then we can start with $n$, and continue to divide the prime numbers in the array.
+
+If not, we can just check through all primes less than $\sqrt{n}$ and divide by those primes until we can't.
+If all the primes multiply up to $n$, we are done. If not, there is exactly one prime more than $\sqrt{n}$ that divides $n$.
+
+## Pollard's Rho Algorithm
+
+Another algorithm involving prime factorization is Pollard's rho algorithm - since the pseudocode is simple, I'll leave the wikipedia link. [https://en.wikipedia.org/wiki/Pollard%27s_rho_algorithm#Algorithm](https://en.wikipedia.org/wiki/Pollard%27s_rho_algorithm#Algorithm)

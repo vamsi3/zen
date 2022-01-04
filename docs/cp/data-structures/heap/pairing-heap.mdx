@@ -1,0 +1,79 @@
+---
+title: Pairing Heap
+---
+
+:::note Resources
+- https://brilliant.org/wiki/pairing-heap/
+- https://en.wikipedia.org/wiki/Pairing_heap
+- https://users.cs.fiu.edu/~weiss/dsaa_c++/code/PairingHeap.cpp
+- https://en.wikipedia.org/wiki/Double-ended_priority_queue
+:::
+
+```cpp
+#include <iostream>
+
+template<typename T>
+class DoubleEndedPriorityQueue {
+public:
+    DoubleEndedPriorityQueue() = default;
+    DoubleEndedPriorityQueue(DoubleEndedPriorityQueue const&) = default;
+    DoubleEndedPriorityQueue(DoubleEndedPriorityQueue&&) noexcept = default;
+    DoubleEndedPriorityQueue& operator=(DoubleEndedPriorityQueue const&) & = default;
+    DoubleEndedPriorityQueue& operator=(DoubleEndedPriorityQueue&&) & noexcept = default;
+    virtual ~DoubleEndedPriorityQueue() = default;
+
+    virtual bool isEmpty() const = 0;
+    virtual size_t size() const = 0;
+    virtual T getMin() const = 0;
+    virtual T getMax() const = 0;
+    virtual void put(T const&) = 0;
+    virtual void removeMin() = 0;
+    virtual void removeMax() = 0;
+};
+
+template<typename T>
+class PairingHeap : public DoubleEndedPriorityQueue<T> {
+private:
+    class Node {
+    public:
+        Node* nextSibling = nullptr;
+        Node* leftmostChild = nullptr;
+        T value;
+
+        explicit Node(T value) : value(value) {}
+        ~Node() { delete nextSibling; delete leftmostChild; }
+    };
+
+    Node* root = nullptr;
+
+    void compareAndLink(Node* otherNode) {
+        if (root == nullptr || otherNode == nullptr) return;
+        if (otherNode->value < root->value) std::swap(root, otherNode);
+        // ...
+    }
+
+public:
+
+
+    [[nodiscard]] bool isEmpty() const override { return root == nullptr; }
+    [[nodiscard]] size_t size() const override { return 1; }
+
+    [[nodiscard]] T getMin() const override {
+        if (root == nullptr) return 0;
+        return root->value;
+    }
+
+    friend void merge(PairingHeap heap1, PairingHeap heap2) {
+        heap1.compareAndLink(heap2.root);
+    }
+
+    void put(T const& value) override {
+        Node* newNode = new Node(value);
+        if (root == nullptr) {
+            root = newNode;
+        } else {
+            this->compareAndLink(newNode);
+        }
+    }
+};
+```

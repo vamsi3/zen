@@ -1,0 +1,90 @@
+---
+title: RegEx
+sidebar_label: RegEx
+---
+
+## Thompson's NFA
+
+``` cpp
+#include <bits/stdc++.h>
+using namespace std;
+
+class State {
+public:
+    int c;
+    State* out;
+    State* out1;
+
+    State(int c, State* out, State* out1) : c(c), out(out), out1(out1) {}
+};
+
+class NFAFragment {
+public:
+    State* start;
+    list<State**> out_list;
+
+    NFAFragment(State* start, list<State**> out_list) : start(start), out_list(out_list) {}
+
+    void join(State* s) { for (auto& out : out_list) *out = s; }
+};
+
+State* post2nfa(string postfix_regex) {
+    const static int SPLIT = 256;
+    const static int MATCH = 257;
+
+    stack<NFAFragment> fragment_stack;
+    for (auto& c : postfix_regex) {
+        switch (c) {
+            case '.': {
+                auto f2 = fragment_stack.top(); fragment_stack.pop();
+                auto f1 = fragment_stack.top(); fragment_stack.pop();
+                f1.join(f2.start);
+                fragment_stack.emplace(f1.start, f2.out_list);
+                break;
+            }
+            case '|': {
+                auto f2 = fragment_stack.top(); fragment_stack.pop();
+                auto f1 = fragment_stack.top(); fragment_stack.pop();
+                auto* s = new State(SPLIT, f1.start, f2.start);
+                f1.out_list.splice(f1.out_list.end(), f2.out_list);
+                fragment_stack.emplace(s, f1.out_list);
+                break;
+            }
+            case '?': {
+                auto f = fragment_stack.top(); fragment_stack.pop();
+                auto* s = new State(SPLIT, f.start, nullptr);
+                f.out_list.push_back(&s->out1);
+                fragment_stack.emplace(s, f.out_list);
+                break;
+            }
+            case '*': {
+                auto f = fragment_stack.top(); fragment_stack.pop();
+                auto* s = new State(SPLIT, f.start, nullptr);
+                f.join(s);
+                fragment_stack.emplace(s, list<State**> {&s->out1});
+                break;
+            }
+            case '+': {
+                auto f = fragment_stack.top(); fragment_stack.pop();
+                auto* s = new State(SPLIT, f.start, nullptr);
+                f.join(s);
+                fragment_stack.emplace(f.start, list<State**> {&s->out1});
+                break;
+            }
+            default: {
+                auto* s = new State(c, nullptr, nullptr);
+                fragment_stack.emplace(s, list<State**> {&s->out});
+            }
+        }
+    }
+    auto f = fragment_stack.top();
+    f.join(new State(MATCH, nullptr, nullptr));
+    return f.start;
+}
+
+// TODO
+
+inline void solve() {
+    // TODO
+}
+```

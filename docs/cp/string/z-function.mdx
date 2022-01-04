@@ -1,0 +1,64 @@
+---
+title: Z-function & Z-algorithm
+sidebar_label: Z-function
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+<Tabs>
+<TabItem value="Code">
+
+```cpp title="Algorithm :: z_function | String :: z_function"
+namespace Algorithm {
+    template<typename T>
+    std::vector<int32_t> z_function(std::span<T> const& s) {
+        int32_t n = static_cast<int32_t>(s.size());
+        std::vector<int32_t> z(n, 0);
+        for (int32_t i = 1, l = 0, r = 0; i < n; ++i) {
+            if (i <= r) z[i] = std::min(r - i + 1, z[i - l]);
+            while (i + z[i] < n && s[i + z[i]] == s[z[i]]) ++z[i];
+            if (i + z[i] - 1 > r) l = i, r = i + z[i] - 1;
+        }
+        return z;
+    }
+}
+
+namespace String {
+    std::vector<int> z_function(std::string const& s) {
+        return Algorithm::z_function<char const>({s.begin(), s.length()});
+    }
+}
+```
+
+</TabItem>
+<TabItem value="Verify">
+<div class="verify-tab">
+<div class="verify">
+
+```cpp title="Verification"
+int main() {
+    std::string s; std::cin >> s;
+    auto z = String::z_function(s);
+    for (auto const& x : z) std::cout << x << ' ';
+}
+```
+
+</div>
+<div class="input">
+
+```text title="Input"
+abacaba
+```
+
+</div>
+<div class="output">
+
+```text title="Output"
+0 0 1 0 3 0 1 
+```
+
+</div>
+</div>
+</TabItem>
+</Tabs>

@@ -1,0 +1,22 @@
+---
+title: Binary Search
+sidebar_label: Binary Search
+---
+
+``` cpp
+namespace Algorithm {
+    tuple<int, int> binary_search(vector<int> v) {
+        int l = -1, r = v.size();
+        while (r - l > 1) {
+            auto m = l + (r - l) / 2;
+            (v[m] ? r : l) = m;
+        }
+        return {l, r};
+    }
+}
+
+int main() {
+  vector<int> v = {0, 0, 0, 1, 1, 1, 1};
+  auto [l, r] = Algorithm::binary_search(v); // l = 2, r = 3
+}
+```

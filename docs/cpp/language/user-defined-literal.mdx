@@ -1,0 +1,39 @@
+---
+title: User-defined Literals
+sidebar_label: User-defined Literals
+---
+
+Note that a literal should start with an underscore `_`. We declare a new literal by this pattern:
+
+```cpp
+[returnType] operator "" _[name]([parameters]) { [body] }
+```
+
+Note that parameters can be only one of these:
+
+`(const char *)`
+`(unsigned long long int)`
+`(long double)`
+`(char)`
+`(wchar_t)`
+`(char16_t)`
+`(char32_t)`
+`(const char *, size_t)`
+`(const wchar_t *, size_t)`
+`(const char16_t *, size_t)`
+`(const char32_t *, size_t)`
+
+Literals also can used with templates.
+
+## Example Code
+
+```cpp
+std::vector<uint64_t> operator "" _v(unsigned long long int x) {
+    return vector<uint64_t> {x};
+} 
+
+int main() {
+    auto v = 36_v;
+    std::cout << v.size() << ' ' << v[0] << std::endl;  // 1 36
+}
+```
