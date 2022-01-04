@@ -1,0 +1,105 @@
+---
+title: Suffix Automaton
+sidebar_label: Suffix Automaton
+---
+
+:::note RESOURCES
+
+1. [https://cp-algorithms.com/string/suffix-automaton.html](https://cp-algorithms.com/string/suffix-automaton.html)
+2. [https://codeforces.com/blog/entry/20861](https://codeforces.com/blog/entry/20861?locale=en)
+3. [https://en.wikipedia.org/wiki/Suffix_automaton](https://en.wikipedia.org/wiki/Suffix_automaton)
+
+:::
+## Code (Algorithm - Blumer _et al._)
+
+### C++
+```cpp title="C++ | String::SuffixAutomaton"
+namespace String {
+    class SuffixAutomaton {
+    public:
+        int last;                                           // node index conrresponding to 'whole string' seen until now
+        std::vector<int> len;                               // length of longest string of node
+        std::vector<int> link;                              // suffix link of node
+        std::vector<std::unordered_map<char, int>> t;       // transitions of node
+
+        SuffixAutomaton() {
+            last = 0; len.resize(1, 0); link.resize(1, -1); t.resize(1);
+        }
+
+        SuffixAutomaton(std::string s) : SuffixAutomaton() {
+            std::for_each(s.cbegin(), s.cend(), std::bind(&SuffixAutomaton::add_char, this, std::placeholders::_1));
+        }
+
+        void add_char(const char& c) {
+            int p = last, q;
+            last = len.size(); len.emplace_back(len[p] + 1); link.emplace_back(0); t.emplace_back();
+
+            while (1) {
+                auto& ed = t[p]; auto it = ed.find(c); if (it != ed.end()) { q = it->second; break; }
+                ed[c] = last; p = link[p]; if (p == -1) return;
+            }
+
+            if (len[q] == len[p] + 1) { link[last] = q; return; }
+
+            int qq = len.size(); len.emplace_back(len[p] + 1); link.emplace_back(link[q]); t.emplace_back(t[q]);
+            link[q] = link[last] = qq;
+            
+            while (1) {
+                auto& r = t[p][c]; if (r != q) return; r = qq;
+                p = link[p]; if (p == -1) return;
+            }
+        }
+    };
+}
+```
+### Kotlin
+```kotlin title="Kotlin | SuffixAutomaton"
+class SuffixAutomaton(string: String) {
+    class SuffixAutomatonNode(
+        var longestLength: Int, var suffixLink: Int, var transition: MutableMap<Char, Int> = mutableMapOf()
+    )
+
+    var nodes = mutableListOf(SuffixAutomatonNode(1, -1))
+    var endNode = 0
+
+    init {
+        string.forEach { addCharacter(it) }
+    }
+
+    private fun addCharacter(char: Char) {
+        tailrec fun traceBack(currentNode: Int, transitionNode: Int?): Pair<Int, Int>? {
+            if (currentNode == -1) return null
+            return when (val nextNode = nodes[currentNode].transition[char]) {
+                transitionNode -> {
+                    nodes[currentNode].transition[char] = nodes.lastIndex
+                    traceBack(nodes[currentNode].suffixLink, transitionNode)
+                }
+                else -> currentNode to (nextNode ?: -1)
+            }
+        }
+
+        val previousEndNode = endNode
+        nodes.add(
+            SuffixAutomatonNode(
+                nodes[previousEndNode].longestLength + 1, 0
+            )
+        )
+        endNode = nodes.lastIndex
+        val (currentNode, nextNode) = traceBack(previousEndNode, null) ?: return
+
+        if (nodes[nextNode].longestLength == nodes[currentNode].longestLength + 1) {
+            nodes[endNode].suffixLink = nextNode
+            return
+        }
+
+        nodes.add(
+            SuffixAutomatonNode(
+                nodes[currentNode].longestLength + 1, nodes[nextNode].suffixLink, nodes[nextNode].transition
+            )
+        )
+        nodes[nextNode].suffixLink = nodes.lastIndex
+        nodes[endNode].suffixLink = nodes.lastIndex
+        traceBack(currentNode, nextNode)
+    }
+}
+```

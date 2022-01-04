@@ -1,0 +1,81 @@
+---
+title: Bridges + Articulation Points
+sidebar_label: Bridges + Articulation Points
+---
+
+## Theory
+
+- A walk is a finite or infinite sequence of edges which joins a sequence of vertices. A finite walk is a sequence of edges $(e_1, e_2, …, e_n - 1)$ for which there is a sequence of vertices $(v_1, v_2, …, v_n)$ such that $ϕ(e_i) = \{v_i, v_i + 1\}$ for $i = 1, 2, …, n - 1$. $(v_1, v_2, …, v_n)$ is the vertex sequence of the walk. This walk is closed if $v_1 = v_n$, and open else. An infinite walk is a sequence of edges of the same type described here, but with no first or last vertex, and a semi-infinite walk (or ray) has a first vertex but no last vertex.
+
+- A trail is a walk in which all edges are distinct.
+
+- A path is a walk (and a trail) in which all vertices (and therefore also all edges) are distinct.
+
+
+Define a binary relation on the vertices of an <u>undirected graph</u>, in which two vertices e and f are related if and only if either e = f or the graph contains two distinct paths between e and f. This will be an equivalence relation. So, we have a partition of graph's vertices into some equivalence classes. We can condense these components into single vertices and the resulting graph will be a tree. The edges of this tree are essentially the complete set of bridges in the original undirected graph.
+
+## DFS to find all Bridges
+
+```cpp
+const int N = 1'000'005;
+vector<int> g[N];
+stack<int> v;
+stack<pair<int, int>> e;
+int in[N], up[N], TIME = 0;
+
+void dfs(int u, int p = -1) {
+    in[u] = ++TIME;
+    up[u] = in[u];
+    v.push(u);
+    
+    int c = 0;
+    bool ap = false;
+    
+    for (auto& v : g[u]) {
+        if (v == p) continue;
+        e.push({v, u});
+        if (in[v]) {
+            up[u] = min(up[u], in[v]);
+        } else {
+            dfs(v, u);
+            up[u] = min(up[u], up[v]);
+
+            ++c;
+
+            if (up[v] >= in[v]) {
+                ap = true;
+
+                set<pair<int, int>> comp;
+                while (true) {
+                    auto x = e.top(); e.pop();
+                    comp.insert(x);
+                    if (x.first == v && x.second == u) break;
+                }
+                // comp now contains the equivalence class defined in case of edges containing v <-> u
+            }
+        }
+    }
+    
+    if (p != -1 && up[u] > in[p]) {
+        // p <-> v is a bridge of the undirected graph
+        
+        set<int> comp;
+        while (true) {
+            int x = v.top(); v.pop();
+            comp.insert(x);
+            if (x == u) break;
+        }
+        // comp now contains the equivalence class deifned in case of vertices containing u.
+    }
+
+    if (ap || (p == -1 && (c > 0))) {
+        // u is an articulation point
+    }
+}
+```
+
+
+### Biconnected component (2-connected component)
+
+Define a binary relation on the edges of an <u>undirected graph</u>, in which two edges e and f are related if and only if either e = f or the graph contains a simple cycle through both e and f. It is an <u>equivalence</u> relation (showing it is transtive is little less obvious). So, it can be used to partition the edges into equivalence classes. <b>The subgraphs formed by the edges in each equivalence class are the biconnected components of the given graph</b>.
+

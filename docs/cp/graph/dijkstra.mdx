@@ -1,0 +1,100 @@
+---
+title: Dijkstra's Algorithm
+sidebar_label: Dijkstra's Algorithm
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+:::note INCLUDE
+- `Graph::Graph`, `Graph::WeightedEdge` ➝ [/cp/graph/graph-class](/cp/graph/graph-class)
+:::
+
+## Code
+
+<Tabs>
+<TabItem value="Code">
+
+```cpp title="Graph::dijkstra"
+namespace Graph {
+    std::vector<int32_t> dijkstra(Graph<WeightedEdge> graph, int32_t source) {
+        std::vector<int32_t> distance(graph.adj.size(), INT_MAX);
+        distance[source] = 0;
+
+        auto cmp_distance = [&distance = std::as_const(distance)](auto const& u, auto const& v) {
+            return distance[u] < distance[v];
+        };
+        std::set<int32_t, decltype(cmp_distance)> leaves({source}, cmp_distance);
+
+        while (!leaves.empty()) {
+            auto u = *leaves.begin();
+            leaves.erase(leaves.begin());
+            
+            for (auto const& ed_idx : graph.adj[u]) {
+                auto const& edge = graph.ed[ed_idx];
+                auto v = edge.other(u);
+                int32_t new_distance = distance[u] + edge.w;
+                if (distance[v] <= new_distance) continue;
+                
+                distance[v] = new_distance;
+                auto node_v = leaves.extract(v);
+                if (node_v) {
+                    leaves.insert(std::move(node_v));
+                } else {
+                    leaves.insert(v);
+                }
+            }
+        }
+
+        return distance;
+    }
+}
+```
+
+</TabItem>
+<TabItem value="Verify">
+<div class="verify-tab">
+<div class="verify">
+
+```cpp title="Verification"
+int main() {
+    int n, m; cin >> n >> m;
+    Graph::Graph<Graph::WeightedEdge> g(n);
+    for (auto _ [[maybe_unused]] : std::views::iota(0, m)) {
+        int u, v, w;
+        std::cin >> u >> v >> w;
+        g.addEdge({--u ,--v, w});
+    }
+    auto d = Graph::dijkstra(g, 0);
+    for (auto& x : d) std::cout << x << ' ';
+    std::cout << std::endl;
+}
+```
+
+</div>
+<div class="input">
+
+```text title="Input"
+6 9
+1 2 7
+1 3 9
+1 6 14
+2 3 10
+2 4 15
+3 4 11
+3 6 2
+4 5 6
+5 6 9
+```
+
+</div>
+<div class="output">
+
+```text title="Output"
+0 7 9 20 20 11
+```
+
+</div>
+</div>
+</TabItem>
+</Tabs>
