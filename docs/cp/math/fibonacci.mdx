@@ -1,0 +1,36 @@
+---
+title: Fibonacci Numbers
+sidebar_label: Fibonacci Numbers
+---
+
+:::note Binet's formula
+
+From the generating function, we have
+
+$$
+\sum\limits_{n=0}^\infty F_nx^n = \frac{x}{1-x-x^2} = x + x^2(1+x) + x^3(1+x)^2 + \dots + x^{k+1}(1+x)^k + \dots
+$$
+
+on comparing coefficients of $x^n$ on both sides,
+
+$$
+F_n = \sum_{k=0}^{\left\lfloor\frac{n-1}{2}\right\rfloor} \binom{n-k-1}{k}
+$$
+
+:::
+
+:::note Property
+
+From the generating function, we have
+
+$$
+\sum\limits_{n=0}^\infty F_nx^n = \frac{x}{1-x-x^2} = x + x^2(1+x) + x^3(1+x)^2 + \dots + x^{k+1}(1+x)^k + \dots
+$$
+
+on comparing coefficients of $x^n$ on both sides,
+
+$$
+F_n = \sum_{k=0}^{\left\lfloor\frac{n-1}{2}\right\rfloor} \binom{n-k-1}{k}
+$$
+
+:::

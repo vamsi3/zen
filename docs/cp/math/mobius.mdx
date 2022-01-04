@@ -1,0 +1,52 @@
+---
+title: Möbius function
+---
+
+:::note Resources
+https://codeforces.com/blog/entry/53925
+:::
+
+``` cpp {4,9,15}
+std::vector<int32_t> linear_sieve_with_mobius(int32_t n) {
+    std::vector<int32_t> primes;
+    std::vector<int32_t> lowest_prime(n, 0);
+    std::vector<int32_t> mobius(n); mobius[1] = 1;
+    for (int64_t i = 2; i < n; ++i) {
+        if (lowest_prime[i] == 0) {
+            primes.push_back(i);
+            lowest_prime[i] = i;
+            mobius[i] = -1;
+        }
+        for (auto const& p : primes) {
+            if (p > lowest_prime[i]) break;
+            if (auto j = i * p; j < n) {
+                lowest_prime[j] = p;
+                mobius[j] = (lowest_prime[i] == p) ? 0 : -mobius[i];
+            }
+        }
+    } 
+    return mobius;
+}
+```
+Time Complexity: $O(n)$
+
+## Theory
+
+#### Definition 1
+- $μ(n) = 1$ if n is a square-free positive integer with an even number of prime factors.
+- $μ(n) = -1$ if n is a square-free positive integer with an odd number of prime factors.
+- $μ(n) = 0$ if n has a squared prime factor.
+
+#### Definition 2
+Alternately, $μ(n)$ is a multiplicative function defined by $f(1) = 1, f(p) = -1, f(p^k) = 0$.
+
+### Möbius Inversion Formula
+The classic version states that if g and f are arithmetic functions satisfying
+$$
+g(n)=\sum_{d \mid n}f(d)\quad\text{for every integer }n\ge 1
+$$
+then
+$$
+f(n)=\sum_{d \mid n}\mu(d)g\left(\frac{n}{d}\right)\quad\text{for every integer }n\ge 1
+$$
+where $μ(x)$ is the Möbius function

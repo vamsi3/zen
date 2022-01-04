@@ -1,0 +1,71 @@
+---
+title: Implication Graph
+sidebar_label: Implication Graph
+---
+
+:::note INCLUDE
+
+- `Graph::SCC` ➝ [/cp/graph/scc](/cp/graph/scc)
+
+:::
+
+## Code
+
+```cpp
+namespace Graph {
+    template<int32_t N_> class ImplicationGraph {
+        static_assert(N_ > 0, "N must be positive");
+        static constexpr int32_t N = N_;
+
+    private:
+        Graph::SCC<N> scc;
+        int n;
+    
+    public:
+        ImplicationGraph() {}
+
+        void set(int n_) { n = n_; scc.set(2 * n + 1); }
+
+        void addClause(int u, int v) {
+            // add both since implication graph is a kind of
+            // skew-symmetric graph where x => y <=> ~y => ~x
+            scc.addEdge(u, v);
+            scc.addEdge(v ^ 1, u ^ 1);
+        }
+
+        vector<int> solve() {
+            vector<int> solution(n + 1, -1);
+            vector<vector<int>> components = scc.kosaraju();
+            for (auto& co : components) {
+                if (solution[co[0] >> 1] != -1) continue;
+                for (auto& u : co) {
+                    int x = u >> 1;
+                    if (solution[x] != -1) return {};
+                    solution[x] = u & 1;
+                }
+            }
+            return solution;
+        }
+    };
+}
+
+constexpr int N = 1'000'005;
+Graph::ImplicationGraph<N> ig;
+
+inline void solve() {
+    int n, m; cin >> n >> m;
+    ig.set(n);
+    for (int i = 0; i < m; ++i) {
+        // input x => y
+        int x, y; bool x_negated, y_negated;
+        cin >> x >> x_negated >> y >> y_negated;
+        ig.addClause((x << 1) | x_negated, (y << 1) | y_negated);
+    }
+
+    vector<int> solution = ig.solve();
+    for (int i = 1; i <= n; ++i) {
+        cout << solution[i] << ' ';
+    }
+    cout << endl;
+}
+```

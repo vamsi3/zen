@@ -1,0 +1,22 @@
+---
+title: std::merge
+sidebar_label: std::merge
+---
+
+## Code
+
+```cpp
+namespace STL {
+    vector<int> merge(vector<int> a, vector<int> b) {
+        vector<int> c(a.size() + b.size());
+        auto x = a.begin(), y = b.begin(), z = c.begin();
+        while (z != c.end()) {
+            if (x == a.end()) { *z++ = *y++; continue; }
+            if (y == b.end()) { *z++ = *x++; continue; }
+            *z++ = (*x > *y) ? *y++ : *x++;
+        }
+        return c;
+    }
+}
+
+```

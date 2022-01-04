@@ -1,0 +1,75 @@
+---
+title: Merge K sorted lists
+---
+
+:::note PROBLEM
+Given an array of ‘K’ sorted LinkedLists, merge them into one sorted list.
+:::
+
+```cpp
+#include <iostream>
+#include <vector>
+#include <list>
+#include <queue>
+#include <algorithm>
+#include <ranges>
+#include <format>
+
+template<typename T>
+class ListMergerInterface {
+public:
+    virtual std::list<T> merge(std::vector<std::list<T>>& lists) = 0;
+    virtual std::list<T> merge(std::vector<std::list<T>>&& lists) = 0;
+};
+
+template<typename T>
+class ListMerger: private ListMergerInterface<T> {
+    template<typename U, typename Comp>
+    using MinHeap = std::priority_queue<U, std::vector<U>, Comp>;
+
+public:
+    std::list<T> merge(std::vector<std::list<T>>&& lists) override {
+        return merge(lists);
+    }
+
+    std::list<T> merge(std::vector<std::list<T>>& lists) override {
+        using ListIterator = std::list<T>::const_iterator;
+
+        auto heapComp = [](auto const& a, auto const& b) { return *std::get<0>(a) > *std::get<0>(b); };
+        MinHeap<std::pair<ListIterator, int>, decltype(heapComp)> heap(heapComp);
+
+        std::ranges::for_each(lists | std::views::enumerate, [&](auto enumeratedList) {
+            auto [index, list] = enumeratedList;
+            heap.emplace(list.cbegin(), index);
+        });
+
+        std::list<T> mergedList;
+
+        while (!heap.empty()) {
+            auto [curIt, index] = heap.top();
+            heap.pop();
+
+            auto nextIt = std::next(curIt);
+            if (nextIt != lists[index].cend()) {
+                heap.emplace(nextIt, index);
+            }
+
+            mergedList.splice(mergedList.cend(), lists[index], curIt);
+        }
+
+        return mergedList;
+    }
+};
+
+int main() {
+    ListMerger<int> listMerger;
+    std::vector<std::list<int>> v = {std::list {1, 4, 7, 10}, std::list {3, 5, 6}, std::list {2, 8, 9}};
+    auto mergedList = listMerger.merge(v);
+
+    for (auto num : mergedList) {
+        std::cout << std::format("{} ", num);
+    }
+}
+
+// 1 2 3 4 5 6 7 8 9 10 
+```

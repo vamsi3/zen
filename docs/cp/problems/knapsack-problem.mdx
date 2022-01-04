@@ -1,0 +1,75 @@
+---
+title: Knapsack Problem
+---
+
+```cpp
+#include <iostream>
+#include <vector>
+#include <format>
+#include <algorithm>
+#include <ranges>
+
+class KnapsackSolver {
+private:
+    class DpEntry {
+    public:
+        int totalValue = 0;
+        std::vector<int> itemIndices = {};
+    };
+public:
+    class Item {
+    public:
+        int weight;
+        int value;
+    };
+
+    class Result {
+    public:
+        int maxTotalValue;
+        std::vector<int> itemIndices;
+    };
+
+    Result solve(std::vector<Item> const& items, int capacity) {
+        std::vector<DpEntry> dp(capacity + 1);
+
+        std::ranges::for_each(
+                items | std::views::enumerate,
+                [&, maxCapacityYet = 0] (auto const& indexItemPair) mutable {
+                    auto [index, item] = indexItemPair;
+
+                    maxCapacityYet += item.weight;
+                    maxCapacityYet = std::min(maxCapacityYet, capacity);
+
+                    for (int c = maxCapacityYet; c >= item.weight; --c) {
+                        int potentialTotalValue = item.value + dp[c - item.weight].totalValue;
+                        if (dp[c].totalValue < potentialTotalValue) {
+                            dp[c].totalValue = potentialTotalValue;
+                            dp[c].itemIndices = dp[c - item.weight].itemIndices;
+                            dp[c].itemIndices.push_back(index);
+                        }
+                    }
+                }
+        );
+
+        auto targetDpEntry = std::ranges::fold_left_first(dp, [](auto const& a, auto const& b) {
+            return (a.totalValue > b.totalValue) ? a : b;
+        });
+
+        return {
+            .maxTotalValue = targetDpEntry->totalValue,
+            .itemIndices = targetDpEntry->itemIndices,
+        };
+    }
+};
+
+int main() {
+    KnapsackSolver knapsackSolver;
+    auto solution = knapsackSolver.solve({{2, 4}, {3, 5}, {1, 3}, {4, 7}}, 5);
+
+    std::cout << std::format("maxTotalValue: {} | itemIndices: ", solution.maxTotalValue);
+    std::ranges::for_each(solution.itemIndices, [](auto const& index) { std::cout << std::format("{} ", index); });
+    std::cout << std::endl;
+}
+
+// maxTotalValue: 10 | itemIndices: 2 3
+```

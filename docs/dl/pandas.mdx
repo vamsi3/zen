@@ -1,0 +1,104 @@
+---
+title: Pandas
+sidebar_label: Pandas
+---
+
+import { PythonREPL, Code, Text } from '@site/src/components/PythonREPL';
+
+### `pd.Series`
+
+```python
+# constructor
+pd.Series([1, 2, 3, 4, 5])
+pd.Series([30, 35, 40], index=['2015 Sales', '2016 Sales', '2017 Sales'], name='Product A')
+```
+
+#### boolean operations
+
+```python
+# s1, s2 are series with dtype: bool
+s1 | s2 # or
+s1 & s2 # and
+```
+
+#### `pd.Series.describe()`
+
+It is type-aware, meaning that its output changes based on the data type of the input.
+
+#### other operations
+
+```python
+s.mean()
+s.unique()
+s.value_counts()
+```
+
+
+
+### `pd.DataFrame`
+
+```python
+# constructor
+pd.DataFrame({'my-column-1': [50, 21], 'my-column-2': [131, 2]})
+pd.DataFrame({'my-column-1': [50, 21], 'my-column-2': [131, 2]}, index=['my-index-1', 'my-index-2'])
+```
+
+```python
+# count rows
+len(df)
+```
+
+#### get column
+
+```python
+# access column
+# all are equivalent
+df.column_name
+df['column_name']
+df.loc[:, 'column_name']
+```
+
+#### set column
+
+```python
+# assign fixed value to column
+df.column_name = 'fixed_value'
+```
+
+```python
+# assign any iterable to column
+# length of iterable must match length of `df`
+df.column_name = range(len(df), 0, -1)
+```
+
+#### get `pd.Series` with `dtype: bool`
+
+```python
+# true if value null / not null respectively
+df.column_name.isnull()
+df.column_name.notnull()
+```
+
+```python
+# true if value is among the collection
+df.column_name.isin(['value_1', 'value_8', 'value_3'])
+```
+
+#### other operations
+
+```python
+df.shape
+df.head()
+df.describe()
+pd.set_option('display.max_rows', 500)
+pd.set_option('display.max_columns', 500)
+pd.set_option('display.width', 1000)
+reviews.set_index('column_name') # assign column as index
+```
+
+### Others
+
+```python
+df = pd.read_csv("../data/data.csv")
+df = pd.read_csv("../data/data.csv", index_col=0) # if index is part of csv
+```

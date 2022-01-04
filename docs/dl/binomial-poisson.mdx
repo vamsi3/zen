@@ -1,0 +1,64 @@
+---
+title: Relation between Binomial and Poisson distributions
+sidebar_label: Binomial - Poisson distributions
+---
+
+:::note
+
+Content here is mainly sourced (copied?) from [here](http://mathcenter.oxford.emory.edu/site/math117/connectingPoissonAndBinomial/)
+
+:::
+
+The <u>Poisson distribution is actually a limiting case of a Binomial distribution</u> when the number of trials, $n$, gets very large and $p$, the probability of success, is small. As a rule of thumb, if $n \ge 100$ and $np \le 10$, the Poisson distribution (taking $\lambda = np$) can provide a very good approximation to the binomial distribution.
+
+This is particularly useful as calculating the combinations inherent in the probability formula associated with the binomial distribution can become difficult when $n$ is large.
+
+To better see the connection between these two distributions, consider the binomial probability of seeing x successes in $n$ trials, with the aforementioned probability of success, $p$, as shown below.
+
+$$
+P(x) = \binom{n}{x} p^x q^{n-x}
+$$
+
+Let us denote the expected value of the binomial distribution, $np$, by $\lambda$. Note, this means that
+
+$$
+p=\frac{\lambda}{n}
+$$
+
+and since $q=1-p$,
+
+$$
+q=1-\frac{\lambda}{n}
+$$
+
+Now, if we use this to rewrite $P(x)$ in terms of $\lambda$, $n$, and $x$, we obtain
+
+$$
+P(x) = \binom{n}{x} \left( \frac{\lambda}{n} \right)^x \left( 1-\frac{\lambda}{n} \right)^{n-x}
+$$
+
+Using the standard formula for the combinations of $n$ things taken $x$ at a time and some simple properties of exponents, we can further expand things to
+
+$$
+P(x) = \frac{n(n-1)(n-2) \cdots (n-x+1)}{x!} \cdot \frac{\lambda^x}{n^x} \left( 1 - \frac{\lambda}{n} \right)^{n-x}
+$$
+
+Notice that there are exactly $x$ factors in the numerator of the first fraction. Let us swap denominators between the first and second fractions, splitting the $n^x$ across all of the factors of the first fraction's numerator.
+
+$$
+P(x) = \frac{n}{n} \cdot \frac{n-1}{n} \cdots \frac{n-x+1}{n} \cdot \frac{\lambda^x}{x!}\left( 1 - \frac{\lambda}{n} \right)^{n-x}
+$$
+
+Finally, let us split the last factor into two pieces, noting (for those familiar with Calculus) that one has a limit of $e^{-\lambda}$.
+
+$$
+P(x) = \frac{n}{n} \cdot \frac{n-1}{n} \cdots \frac{n-x+1}{n} \cdot \frac{\lambda^x}{x!}\left( 1 - \frac{\lambda}{n} \right)^n \left( 1 - \frac{\lambda}{n} \right)^{-x}
+$$
+
+It should now be relatively easy to see that if we took the limit as n approaches infinity, keeping $x$ and $\lambda$ fixed, the first $x$ fractions in this expression would tend towards $1$, as would the last factor in the expression. The second to last factor, as was mentioned before, tends towards $e^{-\lambda}$, and the remaining factor stays unchanged as it does not depend on $n$. As such,
+
+$$
+\lim_{n \rightarrow \infty} P(x) = \frac{e^{-\lambda} \lambda^x}{x!}
+$$
+
+Which is what we wished to show.

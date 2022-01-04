@@ -1,0 +1,108 @@
+---
+title: Notes
+---
+
+#### `std::numeric_limits`
+
+```cpp
+#include <numeric>
+
+auto x1 = std::numeric_limits<int32_t>::min() // x1 = -2^31 = -2147483648
+auto x2 = std::numeric_limits<int32_t>::max() // x2 = 2^31-1 = 2147483647
+```
+
+#### `std::midpoint`
+
+```cpp
+// template< class T >
+// constexpr T midpoint( T a, T b ) noexcept;
+// (since C++20)
+
+#include <numeric>
+
+auto x1 = std::numeric_limits<int32_t>::max(); // x1 = 2147483647
+auto x2 = std::midpoint(x1, x1 - 2); // x2 = 2147483646
+```
+```cpp
+// template< class T >
+// constexpr T* midpoint( T* a, T* b );
+// (since C++20)
+
+#include <numeric>
+
+std::array<int32_t, 7> x1 = {5, 9, 2, 3, 1, 4, 6};
+int* x2 = std::midpoint(std::next(x1.begin(), 2), x1.end()); // *x2 = 1
+```
+
+#### `std::rotate`
+
+```cpp
+#include <iostream>
+#include <vector>
+#include <array>
+#include <format>
+
+class DisjointSet {
+    std::vector<int32_t> _parent;
+
+    [[nodiscard]] int32_t _get_root(int32_t element) const {
+        while (_parent[element] >= 0) {
+            element = _parent[element];
+        }
+        return element;
+    }
+
+    int32_t _get_root_and_reassign_parents(int32_t element) {
+        auto root = _get_root(element);
+        while (true) {
+            auto& parent = _parent[element];
+            if (parent < 0) {
+                break;
+            }
+            element = parent;
+            parent = root;
+        }
+        return root;
+    }
+
+public:
+    explicit DisjointSet(int32_t size) {
+        _parent.assign(size, -1);
+    }
+
+    /**
+     * @return `true` if u, v are not already in same set.
+     */
+    bool merge(int32_t u, int32_t v) {
+        auto root_u = _get_root_and_reassign_parents(u);
+        auto root_v = _get_root_and_reassign_parents(v);
+
+        if (root_u == root_v) {
+            return false;
+        }
+
+        if (_parent[root_u] > _parent[root_v]) {
+            std::swap(root_u, root_v);
+        }
+
+        _parent[root_u] += _parent[root_v];
+        _parent[root_v] = u;
+        return true;
+    }
+
+    bool is_same_set(int32_t u, int32_t v) {
+        auto root_u = _get_root_and_reassign_parents(u);
+        auto root_v = _get_root_and_reassign_parents(v);
+
+        return root_u == root_v;
+    }
+};
+
+int main() {
+    auto disjoint_set = DisjointSet(5);
+    disjoint_set.merge(2, 3);
+    disjoint_set.merge(3, 5);
+    std::cout << disjoint_set.is_same_set(2, 5); // 1
+}
+```
+

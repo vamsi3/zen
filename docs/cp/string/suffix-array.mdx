@@ -1,0 +1,98 @@
+---
+title: Suffix Array
+sidebar_label: Suffix Array
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+<Tabs>
+<TabItem value="Code">
+
+```cpp title="Algorithm :: sort_cyclic_shifts | String :: suffix_array"
+namespace Algorithm {
+    template<typename T>
+    std::vector<int32_t> sort_cyclic_shifts(std::span<T> const& s) {
+        int32_t n = static_cast<int32_t>(s.size());
+        int32_t class_idx = std::ranges::max(s);
+        std::vector<int32_t> p(n), q(n), c(s.begin(), s.end()), cnt(std::max(class_idx + 1, n));
+        std::iota(p.begin(), p.end(), 0);
+
+        auto counting_sort = [&]() {
+            std::fill_n(cnt.begin(), class_idx + 1, 0);
+            for (auto i : std::views::iota(0, n))                           ++cnt[c[p[i]]];
+            for (auto i : std::views::iota(1, class_idx + 1))               cnt[i] += cnt[i - 1];
+            for (auto i : std::views::iota(0, n) | std::views::reverse)     q[--cnt[c[p[i]]]] = p[i];
+            p.swap(q);
+        };
+        
+        auto assign_classes = [&](int32_t const& k) {
+            q[p[0]] = class_idx = 0;
+            for (int i = 1; i < n; ++i) {
+                std::tuple<int, int> cur  = {c[p[i    ]], c[(p[i    ] + k) % n]};
+                std::tuple<int, int> prev = {c[p[i - 1]], c[(p[i - 1] + k) % n]};
+                if (cur != prev) ++class_idx;
+                q[p[i]] = class_idx;
+            }
+            c.swap(q);
+        };
+
+        counting_sort();
+        assign_classes(0);
+        for (int32_t k = 1; k < n; k <<= 1) {
+            for (auto& x : p) { x -= k; if (x < 0) x += n; }
+            counting_sort();
+            assign_classes(k);
+        }
+        return p;
+    }
+}
+
+namespace String {
+    std::vector<int> suffix_array(std::string& s) {
+        s.push_back('$');
+        auto suffix_array = Algorithm::sort_cyclic_shifts<char const>({s.begin(), s.length()});
+        s.pop_back();
+        suffix_array.erase(suffix_array.begin());
+        return suffix_array;
+    }
+}
+```
+
+</TabItem>
+<TabItem value="Verify">
+<div class="verify-tab">
+<div class="verify">
+
+```cpp title="Verification"
+int main() {
+    std::string s; std::cin >> s;
+    auto suffix_array_of_s = String::suffix_array(s);
+    for (auto const& x : suffix_array_of_s) std::cout << x << ' ';
+}
+```
+
+</div>
+<div class="input">
+
+```text title="Input"
+abaab
+```
+
+</div>
+<div class="output">
+
+```text title="Output"
+2 3 0 4 1 
+```
+
+</div>
+</div>
+</TabItem>
+</Tabs>
+
+
+
+
+
+
