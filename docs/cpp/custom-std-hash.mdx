@@ -1,0 +1,17 @@
+---
+title: Custom definition of std::hash
+---
+
+```cpp title="Round H 2021 - Kick Start 2021 Silly Substitutions (Vamsi's submission)"
+template<> struct std::hash<std::list<int>::iterator> {
+    size_t operator()(list<int>::iterator const& it) const noexcept {
+        return hash<int*>()(&*it); // assuming that iterators contain data at different addresses
+    }
+};
+
+void solve() {
+    int n; string s; cin >> n >> s;
+    list<int> l; for (auto const& c : s) l.push_back(c - '0');
+    unordered_set<list<int>::iterator> p[10];
+    // ... ... ...
+```

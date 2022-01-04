@@ -1,0 +1,93 @@
+---
+title: Spatial Domain
+sidebar_label: Spatial Domain
+---
+
+import useBaseUrl from '@docusaurus/useBaseUrl';
+
+## Point-Processing Techniques
+
+Operations applied directly on individual image pixel values independently.
+
+```py
+import cv2
+import numpy as np
+
+img = cv2.imread('lena.png')
+img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+img = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY) / 255
+
+negative_transformation = lambda x : 1 - x
+negative_img = negative_transformation(img)
+
+log_transformation = lambda x, k: np.log1p(k * x) / np.log1p(k) # k in (-1, inf) - {1}. k = 1 is limiting case of identity function
+log_img = log_transformation(img, 100)
+
+# called power-law transformations or gamma transformations
+gamma_transformation = lambda x, gamma: np.power(x, gamma) # gamma in (0, inf). gamma = 1 is case of identity function
+gamma_img = gamma_transformation(img, 4)
+
+concat_img = np.hstack((img, log_img)); cv2.imshow('1', concat_img); cv2.waitKey()
+```
+
+### Gamma Correction
+
+<img src={useBaseUrl('/dip/gamma-correction.png')} />
+<div align="right"><em>Image Credits: Book by Gonzalez, Woods</em></div>
+
+### Piecewise Linear Transformations
+
+#### Contrast Stretching
+
+```py
+import cv2
+import numpy as np
+
+img = cv2.imread('lena.png')
+img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+img = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY) / 255
+
+piecewise_linear_transformation = lambda x, r1, s1, r2, s2 : np.piecewise(x, [x <= r1, x >= r2], [lambda x: s1 * x / r1, lambda x: 1 + (1 - s2) * (x - 1) / (1 - r2), lambda x : s1 + (s1 - s2) * (x - r1) / (r1 - r2)])
+piecewise_linear_img = piecewise_linear_transformation(img, img.mean(), 0, img.mean(), 1)
+```
+
+<img src={useBaseUrl('/dip/contrast-stretching.png')} />
+<div align="right"><em>Image Credits: Book by Gonzalez, Woods</em></div>
+
+#### Intensity-Level Slicing
+
+<img src={useBaseUrl('/dip/intensity-level-slicing.png')} />
+<div align="right"><em>Image Credits: Book by Gonzalez, Woods</em></div>
+
+
+#### Bit-Plane Slicing
+
+This is useful for image compression, where we can just take bit planes 8, 7 (or 6, 5 etc. in some cases) and have sufficiently good detail.
+
+```py
+import cv2
+import numpy as np
+from matplotlib import pyplot as plt
+
+img = cv2.imread('lena.png')
+img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+img = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY) # note that img.dtype is uint8
+
+bit_plane_slicing_img = np.unpackbits(img[np.newaxis], axis=0, bitorder='little').astype(np.float64)
+
+_, ax = plt.subplots(3, 3)
+ax[0, 0].imshow(img / 255, cmap='gray', vmin=0, vmax=1)
+ax[0, 1].imshow(bit_plane_slicing_img[7], cmap='gray', vmin=0, vmax=1)
+ax[0, 2].imshow(bit_plane_slicing_img[6], cmap='gray', vmin=0, vmax=1)
+ax[1, 0].imshow(bit_plane_slicing_img[5], cmap='gray', vmin=0, vmax=1)
+ax[1, 1].imshow(bit_plane_slicing_img[4], cmap='gray', vmin=0, vmax=1)
+ax[1, 2].imshow(bit_plane_slicing_img[3], cmap='gray', vmin=0, vmax=1)
+ax[2, 0].imshow(bit_plane_slicing_img[2], cmap='gray', vmin=0, vmax=1)
+ax[2, 1].imshow(bit_plane_slicing_img[1], cmap='gray', vmin=0, vmax=1)
+ax[2, 2].imshow(bit_plane_slicing_img[0], cmap='gray', vmin=0, vmax=1)
+plt.show()
+```
+
+### Histogram Processing
+
+#### Histogram Equalization

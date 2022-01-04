@@ -1,0 +1,61 @@
+---
+title: Segment Tree
+sidebar_label: Segment Tree
+---
+
+## Theory
+
+### Why define array to be 4 times the maximum range?
+
+If we are building segment tree on interval $[1, n]$ with root index 1 over an array ($2x$ and $2x + 1$ are children of $x$) and if $\mathit{IDX}[n]$ is maximum index of a node in segment tree representing a valid interval; then it can be shown (much more easily observed emperically) that $\frac{\mathit{IDX}[n]}{n}$ is maximum when
+
+$$
+n = 2^k + 2^{\lfloor\frac{k}{2}\rfloor} \;\text{for some *even*}\; k \ge 1
+$$
+
+and for such $n$, it can be shown that
+
+$$
+\mathit{IDX}[n] = 2^{k+2} - 2^{\lfloor\frac{k + 1}{2}\rfloor + 1} + 1
+$$
+
+Finally on limit,
+
+$$
+\lim_{k \to \infty} \frac{2^{k+2} - 2^{\lfloor\frac{k + 1}{2}\rfloor + 1} + 1}{2^k + 2^{\lfloor\frac{k}{2}\rfloor}} = 4
+$$
+
+## Basic (point-update, range-query)
+
+```cpp
+const int N = 1e5 + 5;
+int t[4 * N];
+
+void update(int v, int tl, int tr, int p, int va) {
+  if (tl == tr) {
+    t[p] = va;
+    return;
+  }
+  int tm = tl + (tr - tl) / 2, vl = 2 * v, vr = vl | 1;
+  if (p <= tm) update(vl, tl, tm, p, va);
+  else update(vr, tm + 1, tr, p, va);
+  t[v] = t[vl] + t[vr];
+}
+
+int query(int v, int tl, int tr, int l, int r) {
+  if (tl > r || tr < l) return;
+  if (l <= tl && tr <= r) {
+    return t[v];
+  }
+  int tm = tl + (tr - tl) / 2, vl = 2 * v, vr = vl | 1;
+  int re = query(vl, tl, tm, l, r);
+  re += query(vr, tm + 1, tr, l, r);
+  return re;
+}
+```
+
+## Lazy Propagation (range-update, point-query)
+
+```cpp
+// TODO
+```

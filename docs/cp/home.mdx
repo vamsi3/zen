@@ -1,0 +1,179 @@
+---
+title: Competitive Programming
+slug: /
+sidebar_label: Home
+sidebar_position: 1
+---
+
+This contains all the template code and resources for CP.
+
+## C++ Template
+
+``` cpp
+// Author: Vamsi Krishna Reddy Satti
+// With love for Competitive Programming!
+
+#include <bits/stdc++.h>
+using namespace std;
+
+static inline __attribute__((always_inline)) void solve() {
+
+}
+
+int main() {
+  ios::sync_with_stdio(false); cin.tie(nullptr);
+  int t = 1;
+  // cin >> t;
+  for (int i = 1; i <= t; ++i) {
+    solve();
+  }
+}
+```
+
+## Stack Limit
+
+``` shell
+ulimit -s unlimited   # set stack limit
+ulimit -c             # check if command worked
+./a.out               # execute your code
+```
+
+## Debug Code
+
+``` cpp
+// Credits: tourist
+
+string to_string(const string& s) { return '"' + s + '"'; }
+void debug_out() { cout << endl; }
+template <typename Head, typename... Tail>
+void debug_out(Head H, Tail... T) { cout << " " << to_string(H); debug_out(T...); }
+#ifdef LOCAL
+  #define debug(...) cout << "#" << __LINE__ << " [" << #__VA_ARGS__ << "]:", debug_out(__VA_ARGS__)
+#else
+  #define debug(...) 3;
+#endif
+```
+
+## Measuring Time
+
+``` cpp
+auto tick = chrono::high_resolution_clock::now();
+auto tock = chrono::high_resolution_clock::now();
+cout << chrono::duration_cast<chrono::milliseconds>(tock - tick).count() << " ms\n";
+```
+
+## Pragma GCC Optimizations
+
+:::info Resources
+https://codeforces.com/blog/entry/96344
+:::
+
+```cpp
+#pragma comment(linker, "/stack:200000000")
+#pragma GCC optimize("O3,unroll-loops")
+#pragma GCC target("avx2,bmi,bmi2,lzcnt,popcnt")
+```
+
+---
+
+## Kotlin Template
+
+``` kotlin
+// Author: Vamsi Krishna Reddy Satti
+// With love for Competitive Programming!
+    @JvmField val INPUT = System.`in`
+    @JvmField val OUTPUT = System.out
+
+    @JvmField val _reader = INPUT.bufferedReader()
+    fun readLine(): String? = _reader.readLine()
+    fun readLn() = _reader.readLine()!!
+    @JvmField var _tokenizer: java.util.StringTokenizer = java.util.StringTokenizer("")
+    fun read(): String {
+        while (_tokenizer.hasMoreTokens().not()) _tokenizer = java.util.StringTokenizer(_reader.readLine() ?: return "", " ")
+        return _tokenizer.nextToken()
+    }
+    fun readInt() = read().toInt()
+    fun readDouble() = read().toDouble()
+    fun readLong() = read().toLong()
+    fun readStrings(n: Int) = List(n) { read() }
+    fun readLines(n: Int) = List(n) { readLn() }
+    fun readInts(n: Int) = List(n) { read().toInt() }
+    fun readIntArray(n: Int) = IntArray(n) { read().toInt() }
+    fun readDoubles(n: Int) = List(n) { read().toDouble() }
+    fun readDoubleArray(n: Int) = DoubleArray(n) { read().toDouble() }
+    fun readLongs(n: Int) = List(n) { read().toLong() }
+    fun readLongArray(n: Int) = LongArray(n) { read().toLong() }
+
+    @JvmField val _writer = java.io.PrintWriter(OUTPUT, false)
+    inline fun output(block: java.io.PrintWriter.() -> Unit) { _writer.apply(block).flush() }
+
+fun solve() {
+
+}
+
+
+fun main() {
+    output {
+        var t = 1
+        // var t = readInt()
+        for (i in 1..t) solve()
+    }
+}
+```
+
+## Java Template
+
+``` java
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.util.StringTokenizer;
+
+public class Main {
+    static FastScanner is = new FastScanner();
+    static PrintWriter os = new PrintWriter(System.out);
+
+    public static void main(String[] args) {
+        int t = is.readInt();
+        for (int i = 0; i < t; ++i) solve();
+        os.close();
+    }
+
+    static void solve() {
+        int n = is.readInt();
+        for (int i = 0; i < n; ++i) os.print(i * i + " ");
+        os.println();
+    }
+
+    static class FastScanner {
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer stringTokenizer = new StringTokenizer("");
+
+        String readString() {
+            while (!stringTokenizer.hasMoreTokens()) {
+                try {
+                    stringTokenizer = new StringTokenizer(bufferedReader.readLine());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            return stringTokenizer.nextToken();
+        }
+
+        int readInt() {
+            return Integer.parseInt(readString());
+        }
+
+        int[] readArray(int n) {
+            int[] a = new int[n];
+            for (int i = 0; i < n; ++i) a[i] = readInt();
+            return a;
+        }
+
+        long readLong() {
+            return Long.parseLong(readString());
+        }
+    }
+}
+```

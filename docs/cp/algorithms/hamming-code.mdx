@@ -1,0 +1,80 @@
+---
+title: Hamming Code
+sidebar_label: Hamming Code
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+<Tabs>
+<TabItem value="Code">
+
+```cpp title="HammingCodeExtended"
+template<int32_t LOG_2_BLOCK_LENGTH>
+class HammingCodeExtended {
+public:
+    static std::vector<bool> encode(std::vector<bool> const& data) {
+        constexpr int32_t message_length = (1 << LOG_2_BLOCK_LENGTH) - LOG_2_BLOCK_LENGTH - 1;
+        constexpr int32_t block_length = (1 << LOG_2_BLOCK_LENGTH);
+        std::vector<bool> encoded_data;
+        for (int i = 0; i < data.size(); i += message_length) {
+            int n = encoded_data.size();
+            encoded_data.resize(n + block_length, 0);
+            int k = 2, p = 0;
+            for (int j = i; j < i + message_length; ++j) {
+                ++k; if (!(k & (k  - 1))) ++k;
+                encoded_data[n + k] = data[j];
+                if (encoded_data[n + k]) p ^= k, encoded_data[0] = !encoded_data[0];
+            }
+            for (k = 1; k < LOG_2_BLOCK_LENGTH; ++k) {
+                encoded_data[n + (1 << k)] = p & (1 << k);
+                if (encoded_data[n + (1 << k)]) encoded_data[0] = !encoded_data[0];
+            }
+        }
+        return encoded_data;
+    }
+
+    static std::vector<bool> decode(std::vector<bool> const& data) {
+        // TODO
+    }
+};
+```
+
+</TabItem>
+<TabItem value="Verify">
+<div class="verify-tab">
+<div class="verify">
+
+```cpp title="Verification"
+int main() {
+    std::vector<bool> data;
+    for (int x; std::cin >> x; ) data.push_back(x);
+    auto encoded_data = HammingCodeExtended<4>::encode(data);
+    for (auto x : encoded_data) std::cout << x << ' ';
+}
+```
+
+</div>
+<div class="input">
+
+```text title="Input"
+1 0 1 0 0 1 0 1 0 0 1
+```
+
+</div>
+<div class="output">
+
+```text title="Output"
+1 0 0 1 1 0 1 0 1 0 1 0 1 0 0 1 
+```
+
+</div>
+</div>
+</TabItem>
+</Tabs>
+
+
+
+
+
+

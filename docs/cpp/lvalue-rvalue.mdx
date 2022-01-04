@@ -1,0 +1,19 @@
+---
+title: lvalues & rvalues + Move Semantics & rvalue References
+---
+
+:::note Resources
+- https://www.internalpointers.com/post/understanding-meaning-lvalues-and-rvalues-c
+- https://www.internalpointers.com/post/c-rvalue-references-and-move-semantics-beginners
+:::
+
+_Some of the following are super obvious logically, but listing them for completeness._
+
+- ✓ lvalue = lvalue / rvalue
+- ✕ rvalue = lvalue / rvalue
+- ✓ lvalue reference = lvalue
+- ✕ lvalue reference = rvalue
+- ✓ const lvalue reference = lvalue / rvalue
+- ✓ rvalue reference = rvalue
+- `std::move`(lvalue) will be rvalue
+ 

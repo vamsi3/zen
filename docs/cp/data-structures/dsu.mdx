@@ -1,0 +1,46 @@
+---
+title: Disjoint-set (DSU) / Union-Find
+sidebar_label: DSU / Union-Find
+---
+
+``` cpp
+namespace DSU {
+    /**
+    * @brief: vector `p` contains -(size of tree) if p is a  root else ID of parent in tree.
+    */
+    class DSU {
+    public:
+        vector<int> p;
+
+        DSU(int32_t n) { p.assign(n, -1); }
+
+        int root(int32_t v) { return (p[v] < 0) ? v : p[v] = root(p[v]); }
+        bool same(int32_t u, int32_t v) { return root(u) == root(v); }
+
+        /**
+        * @return: `true` if u, v are not already in same tree.
+        */
+        inline bool join(int32_t u, int32_t v) {
+            if ((u = root(u)) == (v = root(v))) return false;
+            if (p[u] > p[v]) swap(u, v);
+            p[u] += p[v]; p[v] = u; return true;
+        }
+    };
+}
+
+```
+
+## Notes
+
+- The root node of the Tree contains the `-(size of subtree)` . All other nodes contain `Parent ID`.
+
+- The `DSU::root` function can also be implemented **<u>iteratively</u>** as below
+
+``` cpp
+int root(int32_t v) {
+  if (p[v] < 0) return v;
+  int r = v; while (p[r] >= 0) r = p[r];
+  while (p[v] >= 0) { auto pa = p[v]; p[v] = r; v = pa; }
+  return r;
+}
+```

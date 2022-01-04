@@ -1,0 +1,114 @@
+---
+title: Introduction to Abstract Algebra
+authors: vamsi3
+tags: [math]
+---
+
+:::note Resources
+- https://www-users.cse.umn.edu/~brubaker/docs/152/152groups.pdf
+
+:::
+
+## Informal comments
+
+A GROUP is a set in which you can perform one operation with some nice properties. A RING is a set equipped
+with two operations, called addition and multiplication. A RING is a GROUP under addition
+and satisfies some of the properties of a group for multiplication. A FIELD is a GROUP
+under both addition and multiplication.
+
+## Group
+
+### Definition
+A group is a set $\mathcal{G}$ (_i.e._ ) and satisfies:
+
+<!--truncate-->
+
+1. Closure (called $\mathcal{G}$ is <u>closed</u> under the operation $\bullet$ )
+$$
+\forall a, b \in \mathcal{G} \; a \bullet b \in \mathcal{G}
+$$
+
+2. Identity
+$$
+\exists e \in \mathcal{G} \; \mathrm{s.t.} \; \forall a \in \mathcal{G} \; e \bullet a = a \bullet e = a
+$$
+
+3. Inverse ($e$ is the identity above)
+$$
+\forall a \in \mathcal{G} \; \exists b \in \mathcal{G} \; \mathrm{s.t.} \; a \bullet b = b \bullet a = e
+$$
+
+4. Associativity
+$$
+\forall a, b, c \in \mathcal{G} \; a \bullet (b \bullet c) = (a \bullet b) \bullet c
+$$
+
+**Abelian Group**: A group is said to be “abelian” if
+$$
+\forall a, b \in G \; a \bullet b = b \bullet a
+$$
+
+### Examples
+- $\mathbb{Z}/n\mathbb{Z}$ - fancy notation for $\mathrm{integers} \mod n$ under modulo addition.
+- $(\mathbb{Z}/n\mathbb{Z})^{\times}$ - fancy notation for $\mathrm{integers} \mod n$ which are relatively prime to n under multiplication.
+- $\mathbb{Z}$ - integers under addition. <u>Groups don't have to be finite</u>.
+
+## Ring
+
+### Definition
+A ring is a set $\mathcal{R}$ (_i.e._ ) and satisfies:
+
+1. $\mathcal{R}$ is <u>closed</u> under two operations $+$ and $\times$, _i.e._
+$$
+\forall a, b \in \mathcal{R} \; a + b \in \mathcal{R}
+\\\textrm{and}\\
+\forall a, b \in \mathcal{R} \; a \times b \in \mathcal{R}
+$$
+
+2. $\mathcal{R}$ is an abelian group under $+$
+
+3. Associativity of $\times$
+$$
+\forall a, b, c \in \mathcal{R} \; a \times (b \times c) = (a \times b) \times c
+$$
+
+4. Distributive properties
+$$
+\forall a, b, c \in \mathcal{R} \; a \times (b + c) = (a \times b) + (a \times c)
+\\\textrm{and}\\
+\forall a, b, c \in \mathcal{R} \; (b + c) \times a = (b \times a) + (c \times a)
+$$
+
+### Examples
+- $\mathbb{Z}/n\mathbb{Z}$ under modulo addition and modulo multiplication.
+- $\mathbb{Z}$ - integers under addition and multiplication.
+- $\mathbb{Z}[x]$ - fancy notation for all polynomials with integer coefficientss under polynomial addition and polynomial multiplication.
+
+## Field
+
+### Definition
+A field is a set $\mathcal{F}$ (_i.e._ ) and satisfies:
+
+1. $\mathcal{F}$ is <u>closed</u> under two operations $+$ and $\times$, _i.e._
+$$
+\forall a, b \in \mathcal{F} \; a + b \in \mathcal{F}
+\\\textrm{and}\\
+\forall a, b \in \mathcal{F} \; a \times b \in \mathcal{F}
+$$
+
+2. $\mathcal{F}$ is an abelian group under $+$
+
+3. $\mathcal{F} - {e}$ (e is the identity under $+$) is an abelian group under $\times$
+
+### Examples
+- For a prime $p$, $\mathbb{Z}/p\mathbb{Z}$ is a field under modulo addition and modulo multiplication, since (sometimes $\mathbb{F}_{p}$ is used to emphasize this group under these operations)
+    - $\mathbb{Z}/p\mathbb{Z}$ is a group under modulo addition
+    - $(\mathbb{Z}/p\mathbb{Z}) - \{0\} = (\mathbb{Z}/p\mathbb{Z})^{\times}$ is a group under modulo multiplication
+
+- $\mathbb{Q}$ (rational numbers), $\mathbb{R}$ (real numbers), $\mathbb{C}$ (complex numbers) are all infinite fields under the regular addition and multiplication.
+
+### Non Examples
+
+- Note that $\mathbb{Z}$ (integers) are NOT a field under regular addition and multiplication.
+
+- If $n$ is not a prime, then $\mathbb{Z}/n\mathbb{Z}$ is not a field, since $(\mathbb{Z}/n\mathbb{Z}) - \{0\} = (\mathbb{Z}/n\mathbb{Z})^{\times}$. There are, in general, lots of other elements than $0$ which are not relatively prime to $n$ and hence have no inverse under modulo multiplication.

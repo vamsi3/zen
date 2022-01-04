@@ -1,0 +1,35 @@
+---
+title: Number of Topological Orderings of a Directed Tree considering each node as root
+sidebar_label: Number of Topological Orderings of Tree
+---
+
+## Question 1
+
+:::note Question
+
+Find the number of valid topological orderings for each node considering each node as a root of tree in $\mathcal{O}(V + E)$.
+
+:::
+
+:::info Resources
+
+- Codeforces Tutorial: [https://codeforces.com/blog/entry/75627](https://codeforces.com/blog/entry/75627)
+- Codechef Long Challenge: [https://www.codechef.com/MARCH21A/problems/MAXTOPO](https://www.codechef.com/MARCH21A/problems/MAXTOPO) - building upon this idea.
+
+:::
+
+:::warning
+
+Copied from above codeforces blog entry!
+
+:::
+
+I was checking [this problem on csacademy](https://csacademy.com/contest/round-11/task/connected-tree-subgraphs/statement/), and I came up with the dp combinatorics solution to calculate the number of topological orderings of a directed tree with a fixed root.
+
+First, let me explain this solution. Let's root the tree at node $1$ and calculate $sz_v$ = size of the subtree rooted at $v$. Let $dp_v$ be the number of possible topological orderings of the subtree rooted at $v$. To calculate $dp_v$, let's imagine $v$ has only two children: $x$ and $y$. We can see quite easily that $dp_v = dp_x * dp_y * {sz_x+sz_y \choose sz_x}$. That's because any valid topological ordering of the subtree of $v$ will begin with $v$ itself and then $sz_x+sz_y$ nodes, and because the nodes of $x$'s and $y$'s subtrees are independent, all possible combinations between them are possible. So, we will choose $sz_x$ spots of the $sz_x+sz_y$ spots and put in them all the nodes form $x$'s subtree and put on the rest the nodes from $y$'s subtree. Of course, after assigning how we will combine the two subtrees, we can permute the nodes in these spots as long as these permutations are valid; that's why we are multiplying by $dp_x \times dp_y$. What if v has more than two children? We will loop over them and do the same thing accumulatively. The final expression after some reductions looks like this: $dp_v = \frac{(sz_v-1)!}{\prod sz_u!} * \prod dp_u$, where $u$ is a child of $v$. Actually we can reduce this further to $dp_v = \frac{sz_v!}{\prod sz_u}$, where $u$ will loop over **all nodes** in $v$'s subtree.
+
+I felt really unsatisfied after all these reductions because the final expression didn't make sense on its own. But here's a simpler way to think about it without going through all of this.
+
+The number of valid orderings for the whole tree is $dp_1 = \frac{n!}{\prod_{v=1}^{n} sz_v}$. Here, $n!$ represents all possible permutations. Of course, not all of them are valid. For example, the first element of any valid permutation must be $1$ (the root), and that's why we are dividing by $sz_1$. More generally, let's go through the subtrees from the largest to the smallest and perform the division. When considering a subtree, the root of that subtree must appear before all the other nodes from the subtree in the permutation. As we are going over the subtrees from the largest to the smallest, all the permutations of the current subtree contribute to the answer. However, not all of them are valid; we want to fix the root of the subtree in the beginning, so we divide by $sz_v$, so that, now, the current subtree is contributing to the answer by a factor of $(sz_v-1)!$, instead of a factor of $sz_v!$ (because we are fixing one of the nodes).
+
+I found this way of thinking about it much more insightful than the way with reductions, so I wanted to share it with you.
