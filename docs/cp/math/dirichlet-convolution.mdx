@@ -1,0 +1,28 @@
+---
+title: Dirichlet Convolution
+---
+
+If $f , g : \mathbb{N}\to\mathbb{C}$ are two arithmetic functions from the positive integers to the complex numbers, the Dirichlet convolution f ∗ g is a new arithmetic function defined by:
+
+$$
+(f*g)(n) \ =\ \sum_{d\,\mid \,n} f(d)\,g\!\left(\frac{n}{d}\right) \ =\  \sum_{ab\,=\,n}\!f(a)\,g(b)
+$$
+
+- Commutative: $f * g = g * f$
+- Associative: $(f * g) * h = f * (g * h)$
+- Distributive over pointwise addition: $f * (g + h) = f * g + f * h$
+    - Pointwise addition: $f + g$ is defined by $(f + g)(n) = f(n) + g(n)$
+- Multiplicative Identity: $f * \varepsilon = \varepsilon * f = f$
+    - $\varepsilon$ is the **unit function** defined as
+    $$
+    \varepsilon(n) = \begin{cases} 1, & \text{if } n=1 \\ 0, & \text{if }n \neq 1 \end{cases}
+    $$
+- Multiplicative Inverse: for each $f$ having $f(1)\neq 0$, there exists an arithmetic function $f^{-1}$ with $f*f^{-1}=\varepsilon$, called the Dirichlet inverse of $f$
+
+### Important functions
+
+- $\varepsilon$ - Unit function
+- $\mu$ - Mobius function
+- 
+
+- $1 * \mu = \varepsilon$

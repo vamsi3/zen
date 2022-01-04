@@ -1,0 +1,53 @@
+---
+title: Suffix Automaton
+sidebar_label: Suffix Automaton
+---
+
+:::note RESOURCES
+
+1. [https://cp-algorithms.com/string/suffix-automaton.html](https://cp-algorithms.com/string/suffix-automaton.html)
+2. [https://codeforces.com/blog/entry/20861](https://codeforces.com/blog/entry/20861?locale=en)
+3. [https://en.wikipedia.org/wiki/Suffix_automaton](https://en.wikipedia.org/wiki/Suffix_automaton)
+
+:::
+## Code (Algorithm - Blumer _et al._)
+
+```cpp
+namespace String {
+    class SuffixAutomaton {
+    public:
+        int last;                                           // node index conrresponding to 'whole string' seen until now
+        std::vector<int> len;                               // length of longest string of node
+        std::vector<int> link;                              // suffix link of node
+        std::vector<std::unordered_map<char, int>> t;       // transitions of node
+
+        SuffixAutomaton() {
+            last = 0; len.resize(1, 0); link.resize(1, -1); t.resize(1);
+        }
+
+        SuffixAutomaton(std::string s) : SuffixAutomaton() {
+            std::for_each(s.cbegin(), s.cend(), std::bind(&SuffixAutomaton::add_char, this, std::placeholders::_1));
+        }
+
+        void add_char(const char& c) {
+            int p = last, q;
+            last = len.size(); len.emplace_back(len[p] + 1); link.emplace_back(0); t.emplace_back();
+
+            while (1) {
+                auto& ed = t[p]; auto it = ed.find(c); if (it != ed.end()) { q = it->second; break; }
+                ed[c] = last; p = link[p]; if (p == -1) return;
+            }
+
+            if (len[q] == len[p] + 1) { link[last] = q; return; }
+
+            int qq = len.size(); len.emplace_back(len[p] + 1); link.emplace_back(link[q]); t.emplace_back(t[q]);
+            link[q] = link[last] = qq;
+            
+            while (1) {
+                auto& r = t[p][c]; if (r != q) return; r = qq;
+                p = link[p]; if (p == -1) return;
+            }
+        }
+    };
+}
+```

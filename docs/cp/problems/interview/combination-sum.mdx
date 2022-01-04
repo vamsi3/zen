@@ -1,0 +1,40 @@
+---
+title: Combination Sum
+---
+
+:::note PROBLEM
+https://leetcode.com/problems/combination-sum/
+:::
+
+```cpp title="combinationSum" {7-8}
+class Solution {
+public:
+    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
+        vector<vector<int>> validCombinations;
+        vector<int> currentCombination;
+        
+        function<void(vector<int>::iterator const, int)>
+        exploreCombinations = [&](vector<int>::iterator const it, int targetLeftOver) {
+            if (targetLeftOver == 0) {
+                validCombinations.push_back(currentCombination);
+                return;
+            }
+            if (targetLeftOver < 0 || it == candidates.end()) {
+                return;
+            }
+
+            auto const& currentCandidate = *it;
+            currentCombination.push_back(currentCandidate);
+            exploreCombinations(it, targetLeftOver - currentCandidate);
+            currentCombination.pop_back();
+            
+            exploreCombinations(next(it), targetLeftOver);
+        };
+
+        exploreCombinations(candidates.begin(), target);
+        return validCombinations;
+    }
+};
+```
+
+Notice how recursive lambdas require explicit type declaration, and how local variables with lambdas mimic global variables with functions.

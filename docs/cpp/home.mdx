@@ -1,0 +1,234 @@
+---
+title: C++ (until C++20)
+slug: /cpp
+sidebar_label: C++
+sidebar_position: 2
+---
+
+## Some Features
+
+### `std::views`
+> Header `<ranges>`
+
+```cpp
+#include <iostream>
+#include <ranges>
+
+int main() {
+    {
+        int a[] = {1, 2, 3, 4, 5};
+        for (auto& x : a) std::cout << x << ' ';                        // 1 2 3 4 5
+        for (auto& x : a | std::views::reverse) std::cout << x << ' ';  // 5 4 3 2 1
+    }
+    {
+        for (auto x : std::views::iota(3, 9)) std::cout << x << ' ';    // 3 4 5 6 7 8 
+    }
+}
+```
+
+### `std::nth_element`
+- `std::nth_element` ➝ Finds n<sup>th</sup> element and partitions the array around it. [Link](http://www.cplusplus.com/reference/algorithm/nth_element/)
+
+### `std::min`
+- Instead of `int a = min(x1,min(x2,min(x3,min(x4,x5))));`, `int a = min({x2,x2,x3,x4,x5});` can be done.
+
+## Standard Template Library (STL)
+
+import CodeBlock from '@theme/CodeBlock';
+
+### `std::array`
+> Header `<array>`
+```cpp
+template<   class T,
+            std::size_t N   > struct array;
+```
+
+- Not sure if this is in C++ standard or just GCC implementation, but `std::array<int, N>` is an alias of `int*` for any `N` which is `size_t`.
+
+
+### `std::set`
+> Header `<set>`
+```cpp
+template<   class Key,
+            class Compare = std::less<Key>,
+            class Allocator = std::allocator<Key>   > class set;
+```
+
+```cpp
+#include <set>
+
+#include <iostream>
+using std::cout, std::endl;
+
+int main() {
+    {
+        std::set<int> s = {3, 1, 2, 5, 4, 6};
+
+        auto it = s.begin(); // `it` is std::_Rb_tree_const_iterator<int> in GCC
+        
+        for (auto& value : s) { cout << value << ' '; } cout << endl;   // 1 2 3 4 5 6
+
+        std::set<int, std::greater<int>> s_greater = {3, 1, 2, 5, 4, 6};
+        for (auto& value : s_greater) { cout << value << ' '; } cout << endl;   // 6 5 4 3 2 1
+    }
+
+    // custom comparator
+    {
+        std::vector<int> order = {3, 4, 2, 5, 0, 1};
+        auto cmp = [&](int x, int y) { return order[x] < order[y]; };
+        std::set<int, decltype(cmp)> s(cmp);
+    }
+
+    // emplace -> returns iterator to the newly inserted element
+    {
+        std::set<int> set;
+        for (int i = 0; i < 10; ++i) { set.emplace(i); }
+    }
+
+    // emplace_hint -> returns iterator to the newly inserted element
+    {
+        std::set<int> set;
+        for (int i = 0; i < 10; ++i) { set.emplace_hint(set.end(), i); }
+    }
+
+    // merge -> complexity: N * log(size() + N), where N is size of passed in set / multiset.
+    // No elements are copied or moved, only the internal pointers of the container nodes are repointed. 
+    {
+        std::set<char> p{ 'C', 'B', 'B', 'A' }, q{ 'E', 'D', 'E', 'C' };
+        p.merge(q);
+        // at this point p -> { A, B, C, D, E }, q -> { C }
+    }
+
+    // count -> returns 0 / 1
+    // find -> returns iterator
+    // contains -> returns bool
+    {
+        // self-explanatory
+    }
+
+    {
+        std::set<int> set = {3, 1, 2, 9, 2, 7};
+        auto it1 = set.lower_bound(3);  // find >= 3
+        auto it2 = set.upper_bound(3);  // find > 3
+        cout << *it1 << ' ' << *it2 << endl;    // 3 7
+    }
+}
+```
+
+### `std::multimap`
+> Header `<map>`
+```cpp
+template<   class Key,
+            class T,
+            class Compare = std::less<Key>,
+            class Allocator = std::allocator<std::pair<const Key, T> >   > class multimap;
+```
+
+### `std::list`
+> Header `<list>`
+```cpp
+template<   class T,
+            class Allocator = std::allocator<T>   > class list;
+```
+
+```cpp
+#include <list>
+#include <iostream>
+
+int main() {
+    {
+        std::list<char> list;
+        auto print_list = [&]() { for (auto& x : list) std::cout << x << ' '; std::cout << std::endl; };
+
+        list.assign(6, 'c');
+        print_list();   // c c c c c c
+
+        const std::string string = "qwerty";
+        list.assign(string.begin(), string.end());
+        print_list();   // q w e r t y
+
+        list.assign({'a', 'b', 'c', 'x', 'y', 'z'});
+        print_list();   // a b c x y z
+    }
+
+    {
+        std::list<int> list = {3, 4, 1, 2};
+        std::cout << list.front() << ' ' << list.back() << std::endl;           // 3 2
+        
+        list.front() = 30;
+        list.back() = 20;
+        for (auto& x : list) std::cout << x << ' '; std::cout << std::endl;     // 30 4 1 20
+    }
+
+    // insert, push_back, pop_back, push_front, pop_front
+    {
+
+    }
+}
+```
+
+
+### `std::iterator`
+
+- `std::begin` and `std::end` functions
+```cpp
+#include <array>
+#include <iterator>
+#include <vector>
+
+int main() {
+    int c_array[5] = {};
+    std::array<int, 5> cpp_array = {};
+    std::vector<int> cpp_vector(5);
+
+    int* c_array_begin = std::begin(c_array);       // = c_array + 0
+    int* c_array_end = std::end(c_array);           // = c_array + 5
+
+    int* cpp_array_begin = std::begin(cpp_array);   // = cpp_array.begin();
+    int* cpp_array_end = std::end(cpp_array);       // = cpp_array.end();
+    
+    std::vector<int>::iterator cpp_vector_begin = std::begin(cpp_vector); // = cpp_vector.begin();
+    std::vector<int>::iterator cpp_vector_end = std::end(cpp_vector);     // = cpp_vector.end();
+}
+```
+
+
+## Files
+
+```cpp
+#include <iostream>
+#include <fstream>
+
+int main() {
+    std::ifstream ifile("hello.txt");
+
+    if (!ifile) {
+        std::cerr << "Failed to open file!" << std::endl;
+        return 0;
+    }
+
+    std::string str;
+
+    // Rrad word by word by trimming whitespace
+    while (ifile >> str) {
+        std::cout << str << ' ';
+    }
+
+    // Can also line by line by trimming new line characters
+    while (std::getline(ifile, str)) {
+        std::cout << str << std::endl;
+    }
+
+    ifile.close();
+
+    std::ofstream ofile("hello.txt");
+    if (!ofile) {
+        std::cerr << "Failed to create file!" << std::endl;
+        return 0;
+    }
+
+    ofile << "Hello, World!";
+
+    ofile.close();
+}
+```
