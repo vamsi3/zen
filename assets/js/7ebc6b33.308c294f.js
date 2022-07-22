@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkzen=self.webpackChunkzen||[]).push([[5601],{9190:e=>{e.exports=JSON.parse('{"title":"Problems","slug":"/category/problems","permalink":"/zen/category/problems","navigation":{"previous":{"title":"Sieve","permalink":"/zen/cp/math/sieve"},"next":{"title":"Combination Sum","permalink":"/zen/cp/problems/combination-sum"}}}')}}]);

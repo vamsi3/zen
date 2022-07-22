@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkzen=self.webpackChunkzen||[]).push([[8248],{3218:e=>{e.exports=JSON.parse('{"title":"Geometry","slug":"/category/geometry","permalink":"/zen/category/geometry","navigation":{"previous":{"title":"Vector","permalink":"/zen/cp/data-structures/vector"},"next":{"title":"Convex Hull","permalink":"/zen/cp/geometry/convex-hull"}}}')}}]);

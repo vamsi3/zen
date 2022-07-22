@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkzen=self.webpackChunkzen||[]).push([[9170],{6568:e=>{e.exports=JSON.parse('{"title":"Graph","slug":"/category/graph","permalink":"/zen/category/graph","navigation":{"previous":{"title":"Point [Class]","permalink":"/zen/cp/geometry/point-class"},"next":{"title":"2-SAT","permalink":"/zen/cp/graph/2-sat"}}}')}}]);

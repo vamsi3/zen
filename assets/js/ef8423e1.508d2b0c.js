@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkzen=self.webpackChunkzen||[]).push([[1044],{576:e=>{e.exports=JSON.parse('{"label":"korean","permalink":"/zen/notes/tags/korean","allTagsPath":"/zen/notes/tags","count":1}')}}]);

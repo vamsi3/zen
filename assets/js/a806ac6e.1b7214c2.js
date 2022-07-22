@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkzen=self.webpackChunkzen||[]).push([[2766],{7379:e=>{e.exports=JSON.parse('{"title":"Language","slug":"/category/language","permalink":"/zen/category/language","navigation":{"previous":{"title":"C++","permalink":"/zen/cpp"},"next":{"title":"Attribute specifier sequence","permalink":"/zen/cpp/language/attribute-specifier-sequence"}}}')}}]);
