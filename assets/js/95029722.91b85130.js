@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkzen=self.webpackChunkzen||[]).push([[8301],{7726:e=>{e.exports=JSON.parse('{"label":"finance","permalink":"/zen/notes/tags/finance","allTagsPath":"/zen/notes/tags","count":1}')}}]);

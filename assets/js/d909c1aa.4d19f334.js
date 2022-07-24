@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkzen=self.webpackChunkzen||[]).push([[3033],{5901:e=>{e.exports=JSON.parse('[{"label":"interview","permalink":"/zen/notes/tags/interview","count":1},{"label":"language","permalink":"/zen/notes/tags/language","count":1},{"label":"korean","permalink":"/zen/notes/tags/korean","count":1},{"label":"dev","permalink":"/zen/notes/tags/dev","count":1}]')}}]);
