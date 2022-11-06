@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkzen=self.webpackChunkzen||[]).push([[9227],{7040:e=>{e.exports=JSON.parse('{"label":"math","permalink":"/zen/notes/tags/math","allTagsPath":"/zen/notes/tags","count":1}')}}]);
